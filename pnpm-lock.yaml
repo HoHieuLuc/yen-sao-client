@@ -6,7 +6,6 @@ specifiers:
   '@mantine/core': ^4.2.6
   '@mantine/hooks': ^4.2.6
   '@mantine/next': ^4.2.6
-  '@modulz/radix-icons': ^4.0.0
   '@next/bundle-analyzer': ^12.1.6
   '@next/eslint-plugin-next': ^12.1.6
   '@testing-library/dom': ^8.13.0
@@ -44,7 +43,6 @@ dependencies:
   '@mantine/core': 4.2.6_ac115de45023a888d9a49586800a71ff
   '@mantine/hooks': 4.2.6_react@18.1.0
   '@mantine/next': 4.2.6_be105cc7b875909ef432901e4436a803
-  '@modulz/radix-icons': 4.0.0_react@18.1.0
   '@next/bundle-analyzer': 12.1.6
   cookies-next: 2.0.4
   deepmerge: 4.2.2
@@ -566,14 +564,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/react'
-    dev: false
-
-  /@modulz/radix-icons/4.0.0_react@18.1.0:
-    resolution: {integrity: sha512-d79T4cYvMGMocVC/q1WiMO578FPFfUoxmXIkduc8cUQAPDr7thuEV5HrCHhqqqkoVaYD0QPct180ilcNUyGPrg==}
-    peerDependencies:
-      react: ^16.x || ^17.x
-    dependencies:
-      react: 18.1.0
     dev: false
 
   /@next/bundle-analyzer/12.1.6:
