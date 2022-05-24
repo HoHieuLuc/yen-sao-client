@@ -91,4 +91,5 @@ module.exports = {
         tsconfigRootDir: __dirname,
         sourceType: 'module'
     },
+    ignorePatterns: ['next.config.js']
 };
