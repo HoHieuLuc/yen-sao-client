@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/client';
 import {
     AllSanPhams,
     SanPhamByID,
@@ -13,6 +13,8 @@ const ALL = gql`
                     id
                     tenSanPham
                     soLuong
+                    anhSanPham
+                    moTa
                     donGiaSi
                     donGiaLe
                     donGiaTuyChon
@@ -49,7 +51,29 @@ const BY_ID = gql`
     }
 `;
 
-const useAllSanPham = (variables: SearchSanPhamVars) => {
+const getAll = async (
+    client: ApolloClient<NormalizedCacheObject>,
+    variables: SearchSanPhamVars
+) => {
+    await client.query<AllSanPhams, SearchSanPhamVars>({
+        query: ALL,
+        variables
+    });
+};
+
+const getByID = async (client: ApolloClient<NormalizedCacheObject>, id: string) => {
+    await client.query({
+        query: BY_ID,
+        variables: { id }
+    });
+};
+
+export const sanPhamService = {
+    getAll,
+    getByID
+};
+
+const useAllSanPhams = (variables: SearchSanPhamVars) => {
     return useQuery<
         AllSanPhams, SearchSanPhamVars
     >(ALL, {
@@ -70,5 +94,5 @@ const useSanPhamByID = (id: string) => {
 
 export const sanPhamHooks = {
     useSanPhamByID,
-    useAllSanPham,
+    useAllSanPhams,
 };

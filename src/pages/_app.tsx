@@ -1,11 +1,15 @@
-import { GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
-import { AppProps } from 'next/app';
-import { getCookie, setCookies } from 'cookies-next';
-import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../graphql/client';
+import { useState } from 'react';
+
+import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import Layout from '../components/Layout/Layout';
+import { ApolloProvider } from '@apollo/client';
+import Head from 'next/head';
+
+import { getCookie, setCookies } from 'cookies-next';
+import { GetServerSidePropsContext } from 'next';
+import { AppProps } from 'next/app';
+import '../styles/index.css';
 
 type Props = AppProps & {
     colorScheme: ColorScheme;
@@ -20,7 +24,11 @@ export default function App(props: Props) {
     const toggleColorScheme = (value?: ColorScheme) => {
         const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
         setColorScheme(nextColorScheme);
-        setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+        setCookies(
+            'mantine-color-scheme',
+            nextColorScheme,
+            { maxAge: 60 * 60 * 24 * 30 }
+        );
     };
 
     return (
@@ -31,13 +39,22 @@ export default function App(props: Props) {
                 <link rel="shortcut icon" href="/favicon.ico" />
             </Head>
 
-            <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-                <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-                    <ApolloProvider client={apolloClient}>
-                        <Component {...pageProps} />
-                    </ApolloProvider>
-                </MantineProvider>
-            </ColorSchemeProvider>
+            <ApolloProvider client={apolloClient}>
+                <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+                    <MantineProvider
+                        theme={{
+                            colorScheme,
+                            spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
+                        }}
+                        withGlobalStyles
+                        withNormalizeCSS
+                    >
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </MantineProvider>
+                </ColorSchemeProvider>
+            </ApolloProvider>
         </>
     );
 }

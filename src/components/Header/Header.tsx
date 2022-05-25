@@ -1,16 +1,22 @@
-import { useBooleanToggle } from '@mantine/hooks';
+import { useBooleanToggle, useClickOutside } from '@mantine/hooks';
 import useStyles from './Header.styles';
 
-import { Header, Container, Group, Burger, Image, Stack, Button } from '@mantine/core';
-import Link from 'next/link';
+import { Header, Container, Group, Burger, Image, Stack, Button, Collapse } from '@mantine/core';
+import { useRouter } from 'next/router';
 
 interface HeaderSimpleProps {
-    links: { link: string; label: string }[];
+    links: {
+        link?: string;
+        label: string;
+        onClick?: () => void;
+    }[];
 }
 
 const AppHeader = ({ links }: HeaderSimpleProps) => {
     const [opened, toggleOpened] = useBooleanToggle(false);
     const { classes } = useStyles();
+    const menuRef = useClickOutside(() => toggleOpened(false));
+    const router = useRouter();
 
     const items = links.map((link) => (
         <Button
@@ -28,18 +34,20 @@ const AppHeader = ({ links }: HeaderSimpleProps) => {
                     },
                 }
             })}
+            onClick={() => {
+                if (link.link && link.link !== router.pathname) {
+                    void router.push(link.link);
+                }
+                link.onClick && link.onClick();
+            }}
         >
-            <Link href={link.link}>
-                <a className={classes.link}>
-                    {link.label}
-                </a>
-            </Link>
+            {link.label}
         </Button>
     ));
 
     return (
         <>
-            <Header height={60} style={{ position: 'sticky' }}>
+            <Header ref={menuRef} height={60} style={{ position: 'sticky' }}>
                 <Container className={classes.header}>
                     <Image
                         src='/logo.jpg'
@@ -59,20 +67,25 @@ const AppHeader = ({ links }: HeaderSimpleProps) => {
                     />
                 </Container>
             </Header>
-            {opened && <Stack
-                spacing='xs'
-                className={classes.burger}
-                align='flex-start'
+            <Collapse
+                in={opened}
                 style={{
                     position: 'fixed',
                     top: 60,
                     zIndex: 1,
                     backgroundColor: 'white',
-                    width: '100%'
+                    width: '100%',
+                    borderBottom: '1px solid #e5e5e5',
                 }}
             >
-                {items}
-            </Stack>}
+                <Stack
+                    spacing='xs'
+                    className={classes.burger}
+                    align='flex-start'
+                >
+                    {items}
+                </Stack>
+            </Collapse>
         </>
     );
 };
