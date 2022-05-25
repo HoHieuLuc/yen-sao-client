@@ -22,16 +22,24 @@ const AppFooter = ({ data }: Props) => {
                 <div style={{ marginLeft: 'auto' }}>
                     <Grid justify='center'>
                         <Grid.Col span={2}>Địa chỉ:</Grid.Col>
-                        <Grid.Col span={10}>{data.page.address.content.value.map(
-                            (item, index) => (
-                                <Text key={`${item}:${index}`}>{item}</Text>
-                            ))}
+                        <Grid.Col span={10}>
+                            {data.page.address && data.page.address.content.value.length > 0
+                                ? data.page.address.content.value.map(
+                                    (item, index) => (
+                                        <Text key={`${item}:${index}`}>{item}</Text>
+                                    ))
+                                : 'Địa chỉ chưa được cập nhật'
+                            }
                         </Grid.Col>
                         <Grid.Col span={2}>Số điện thoại:</Grid.Col>
-                        <Grid.Col span={10}>{data.page.phone.content.value.map(
-                            (item, index) => (
-                                <Text key={`${item}:${index}`}>{item}</Text>
-                            ))}
+                        <Grid.Col span={10}>
+                            {data.page.phone && data.page.phone.content.value.length > 0
+                                ? data.page.phone.content.value.map(
+                                    (item, index) => (
+                                        <Text key={`${item}:${index}`}>{item}</Text>
+                                    ))
+                                : 'Số điện thoại chưa được cập nhật'
+                            }
                         </Grid.Col>
                     </Grid>
                 </div>
