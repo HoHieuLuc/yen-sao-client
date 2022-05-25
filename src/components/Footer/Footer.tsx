@@ -1,6 +1,6 @@
 import useStyles from './Footer.styles';
 
-import { Text, Container, Image, Grid } from '@mantine/core';
+import { Text, Container, Image, Grid, Box } from '@mantine/core';
 
 import { AllPage } from '../../types';
 
@@ -11,7 +11,7 @@ interface Props {
 const AppFooter = ({ data }: Props) => {
     const { classes } = useStyles();
     return (
-        <footer className={classes.footer}>
+        <Box className={classes.footer}>
             <Container className={classes.inner}>
                 <Image
                     src='/logo.png'
@@ -41,7 +41,7 @@ const AppFooter = ({ data }: Props) => {
                     © {new Date().getFullYear()}. All rights reserved.
                 </Text>
             </Container>
-        </footer>
+        </Box>
     );
 };
 

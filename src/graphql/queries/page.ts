@@ -1,6 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/client';
 import { AllPage } from '../../types/page';
-import { addApolloState, initializeApollo } from '../client';
 
 const ALL = gql`
     query AllPages {
@@ -24,20 +23,14 @@ const ALL = gql`
     }
 `;
 
-const getAllPages = async () => {
-    const client = initializeApollo();
+const getAll = async (client: ApolloClient<NormalizedCacheObject>) => {
     await client.query<AllPage>({
         query: ALL
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return addApolloState(client, {
-        props: {}
     });
 };
 
 export const pageService = {
-    getAllPages
+    getAll
 };
 
 const useAllPages = () => {

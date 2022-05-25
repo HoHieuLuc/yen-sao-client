@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useMemo } from 'react';
+
 import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
-import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
+import { AppProps } from 'next/app';
 import appConfig from '../config';
+import merge from 'deepmerge';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -34,7 +34,16 @@ function createApolloClient() {
     });
 }
 
-export function initializeApollo(initialState: NormalizedCacheObject | null = null) {
+type InitialState = NormalizedCacheObject | undefined;
+
+interface IInitializeApollo {
+    initialState?: InitialState | null
+}
+
+export function initializeApollo(
+    { initialState }: IInitializeApollo = {
+        initialState: null,
+    }) {
     const _apolloClient = apolloClient ?? createApolloClient();
 
     // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -67,7 +76,10 @@ export function initializeApollo(initialState: NormalizedCacheObject | null = nu
     return _apolloClient;
 }
 
-export function addApolloState(client: ApolloClient<NormalizedCacheObject>, pageProps: any) {
+export function addApolloState(
+    client: ApolloClient<NormalizedCacheObject>,
+    pageProps: AppProps['pageProps']
+) {
     if (pageProps?.props) {
         pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
     }
@@ -75,8 +87,16 @@ export function addApolloState(client: ApolloClient<NormalizedCacheObject>, page
     return pageProps;
 }
 
-export function useApollo(pageProps: any) {
-    const state = pageProps[APOLLO_STATE_PROP_NAME];
-    const store = useMemo(() => initializeApollo(state), [state]);
+export function useApollo(pageProps: AppProps['pageProps']) {
+    let state: InitialState | null;
+    try {
+        state = pageProps[APOLLO_STATE_PROP_NAME];
+    } catch (error) {
+        state = null;
+    }
+
+    const store = useMemo(() => initializeApollo({ initialState: state }), [
+        state,
+    ]);
     return store;
 }

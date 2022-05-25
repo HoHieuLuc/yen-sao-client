@@ -3,7 +3,7 @@ interface Config {
 }
 
 const appConfig: Config = {
-    apiURL: 'http://localhost:4000',
+    apiURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000',
 };
 
 export default appConfig;
