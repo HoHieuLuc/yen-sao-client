@@ -31,7 +31,7 @@ const About = ({ data }: Props) => {
             <div
                 className={classes.rte}
                 dangerouslySetInnerHTML={{
-                    __html: data.page.about.content.value
+                    __html: data.page.about?.content.value || 'Giới thiệu trống'
                 }}
             />
         </Spoiler>

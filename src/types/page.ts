@@ -7,15 +7,15 @@ export interface BasePage<T> {
 }
 
 export interface About {
-    about: BasePage<string>;
+    about?: BasePage<string>;
 }
 
 export interface Address {
-    address: BasePage<Array<string>>;
+    address?: BasePage<Array<string>>;
 }
 
 export interface PhoneNumber {
-    phone: BasePage<Array<string>>;
+    phone?: BasePage<Array<string>>;
 }
 
 export interface AllPage {
