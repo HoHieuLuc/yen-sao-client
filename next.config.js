@@ -8,3 +8,9 @@ module.exports = withBundleAnalyzer({
         ignoreDuringBuilds: true,
     },
 });
+
+module.exports = {
+    images: {
+        domains: ['res.cloudinary.com', 'media.discordapp.net'],
+    },
+}
