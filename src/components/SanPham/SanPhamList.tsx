@@ -46,6 +46,19 @@ const SanPhamList = () => {
                             page={currentPage}
                             total={data.sanPham.all.pageInfo.totalPages}
                             onChange={handlePageChange}
+                            styles={(theme) => ({
+                                item: {
+                                    border: 'none',
+                                    backgroundColor: theme.colorScheme,
+                                    [`&:hover`]: {
+                                        backgroundColor: theme.colors.gray[1],
+                                    }
+                                },
+                                active: {
+                                    color: 'black',
+                                    backgroundColor: theme.colors.gray[1]
+                                }
+                            })}
                         />}
                     </Center>
                 </Stack>

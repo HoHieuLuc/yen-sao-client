@@ -12,13 +12,14 @@ export interface SanPham {
     tags: Array<string>;
     anhSanPham: Array<string>;
     isPublic: boolean;
+    slug: string;
     createdAt: number;
     updatedAt: number;
 }
 
-export interface SanPhamByID {
+export interface SanPhamBySlug {
     sanPham: {
-        byID: SanPham
+        bySlug?: SanPham
     }
 }
 

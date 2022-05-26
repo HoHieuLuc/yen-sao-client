@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 
-import { Badge, Box, Button, Card, Image, Text } from '@mantine/core';
+import { Badge, Box, Button, Card, Text } from '@mantine/core';
+import Image from 'next/image';
 
 import { convertToVND } from '../../utils/common';
 import { SanPham } from '../../types';
@@ -25,7 +26,9 @@ const SanPhamCard = ({ data }: Props) => {
             <Card.Section style={{ position: 'relative' }}>
                 <Image
                     src={data.anhSanPham[0]}
-                    height={160}
+                    height={250}
+                    width={300}
+                    layout='responsive'
                     alt={data.tenSanPham}
                 />
                 <Badge
@@ -71,7 +74,7 @@ const SanPhamCard = ({ data }: Props) => {
                 variant='light'
                 color='blue'
                 fullWidth
-                onClick={() => void router.push(`/san-pham/${data.id}`)}
+                onClick={() => void router.push(`/san-pham/${data.slug}`)}
             >
                 Xem chi tiết
             </Button>

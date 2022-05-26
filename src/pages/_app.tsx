@@ -1,7 +1,10 @@
+import { useDebouncedValue } from '@mantine/hooks';
 import { useApollo } from '../graphql/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import ErrorBoundary from '../components/Utils/Errors/ErrorBoundary';
 import Layout from '../components/Layout/Layout';
 import { ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
@@ -20,6 +23,9 @@ export default function App(props: Props) {
     const { Component, pageProps } = props;
     const apolloClient = useApollo(pageProps);
     const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+    const [loading, setLoading] = useState(false);
+    const [debouncedLoading] = useDebouncedValue(loading, 100);
+    const router = useRouter();
 
     const toggleColorScheme = (value?: ColorScheme) => {
         const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -31,30 +37,54 @@ export default function App(props: Props) {
         );
     };
 
+    useEffect(() => {
+        const start = () => {
+            setLoading(true);
+        };
+        const end = () => {
+            setLoading(false);
+        };
+        router.events.on('routeChangeStart', start);
+        router.events.on('routeChangeComplete', end);
+        router.events.on('routeChangeError', end);
+        return () => {
+            router.events.off('routeChangeStart', start);
+            router.events.off('routeChangeComplete', end);
+            router.events.off('routeChangeError', end);
+        };
+    }, []);
+
     return (
         <>
             <Head>
                 <title>Yến Sào MS.Tưởng</title>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-                <link rel="shortcut icon" href="/favicon.ico" />
+                <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width' />
+                <link rel='shortcut icon' href='/favicon.ico' />
             </Head>
-
-            <ApolloProvider client={apolloClient}>
-                <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-                    <MantineProvider
-                        theme={{
-                            colorScheme,
-                            spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
-                        }}
-                        withGlobalStyles
-                        withNormalizeCSS
+            <ErrorBoundary>
+                <ApolloProvider client={apolloClient}>
+                    <ColorSchemeProvider
+                        colorScheme={colorScheme}
+                        toggleColorScheme={toggleColorScheme}
                     >
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </MantineProvider>
-                </ColorSchemeProvider>
-            </ApolloProvider>
+                        <MantineProvider
+                            theme={{
+                                colorScheme,
+                                spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
+                            }}
+                            withGlobalStyles
+                            withNormalizeCSS
+                        >
+                            <Layout
+                                loading={loading}
+                                debouncedLoading={debouncedLoading}
+                            >
+                                <Component {...pageProps} />
+                            </Layout>
+                        </MantineProvider>
+                    </ColorSchemeProvider>
+                </ApolloProvider>
+            </ErrorBoundary>
         </>
     );
 }

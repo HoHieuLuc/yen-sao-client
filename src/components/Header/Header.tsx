@@ -1,8 +1,11 @@
 import { useBooleanToggle, useClickOutside } from '@mantine/hooks';
+import { useRouter } from 'next/router';
 import useStyles from './Header.styles';
 
-import { Header, Container, Group, Burger, Image, Stack, Button, Collapse } from '@mantine/core';
-import { useRouter } from 'next/router';
+import {
+    Header, Container, Group, Burger, Image,
+    Stack, Button, Collapse, Progress
+} from '@mantine/core';
 
 interface HeaderSimpleProps {
     links: {
@@ -10,9 +13,11 @@ interface HeaderSimpleProps {
         label: string;
         onClick?: () => void;
     }[];
+    loading: boolean;
+    debouncedLoading: boolean;
 }
 
-const AppHeader = ({ links }: HeaderSimpleProps) => {
+const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
     const [opened, toggleOpened] = useBooleanToggle(false);
     const { classes } = useStyles();
     const menuRef = useClickOutside(() => toggleOpened(false));
@@ -36,7 +41,10 @@ const AppHeader = ({ links }: HeaderSimpleProps) => {
             })}
             onClick={() => {
                 if (link.link && link.link !== router.pathname) {
-                    void router.push(link.link);
+                    void router.push(link.link).then(() => {
+                        link.onClick && link.onClick();
+                    });
+                    return;
                 }
                 link.onClick && link.onClick();
             }}
@@ -48,6 +56,11 @@ const AppHeader = ({ links }: HeaderSimpleProps) => {
     return (
         <>
             <Header ref={menuRef} height={60} style={{ position: 'sticky' }}>
+                {
+                    !loading && !debouncedLoading
+                        ? <></>
+                        : <Progress animate value={loading ? 30 : 100} size='sm' />
+                }
                 <Container className={classes.header}>
                     <Image
                         src='/logo.jpg'

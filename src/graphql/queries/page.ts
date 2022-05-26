@@ -24,7 +24,7 @@ const ALL = gql`
 `;
 
 const getAll = async (client: ApolloClient<NormalizedCacheObject>) => {
-    await client.query<AllPage>({
+    return client.query<AllPage>({
         query: ALL
     });
 };

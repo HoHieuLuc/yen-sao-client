@@ -1,6 +1,7 @@
 import useStyles from './About.styles';
 
-import { Center, Spoiler, Title } from '@mantine/core';
+import RichText from '../Utils/RichText/RichText';
+import { Spoiler } from '@mantine/core';
 
 import { AllPage } from '../../types';
 
@@ -12,7 +13,7 @@ const About = ({ data }: Props) => {
     const { classes } = useStyles();
     return (
         <Spoiler
-            maxHeight={120}
+            maxHeight={200}
             showLabel='Xem thêm'
             hideLabel='Thu gọn'
             styles={{
@@ -25,14 +26,11 @@ const About = ({ data }: Props) => {
                 }
             }}
         >
-            <Center>
-                <Title>Giới thiệu</Title>
-            </Center>
-            <div
+            <RichText
+                value={data.page.about ? data.page.about.content.value : ''}
+                onChange={() => void (0)}
+                readOnly
                 className={classes.rte}
-                dangerouslySetInnerHTML={{
-                    __html: data.page.about?.content.value || 'Giới thiệu trống'
-                }}
             />
         </Spoiler>
     );
