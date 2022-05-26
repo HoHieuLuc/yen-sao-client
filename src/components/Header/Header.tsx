@@ -1,8 +1,11 @@
 import { useBooleanToggle, useClickOutside } from '@mantine/hooks';
+import { useRouter } from 'next/router';
 import useStyles from './Header.styles';
 
-import { Header, Container, Group, Burger, Image, Stack, Button, Collapse, Progress } from '@mantine/core';
-import { useRouter } from 'next/router';
+import {
+    Header, Container, Group, Burger, Image,
+    Stack, Button, Collapse, Progress
+} from '@mantine/core';
 
 interface HeaderSimpleProps {
     links: {

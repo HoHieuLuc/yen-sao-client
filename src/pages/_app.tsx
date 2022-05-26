@@ -1,5 +1,7 @@
+import { useDebouncedValue } from '@mantine/hooks';
 import { useApollo } from '../graphql/client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import ErrorBoundary from '../components/Utils/Errors/ErrorBoundary';
@@ -11,8 +13,6 @@ import { getCookie, setCookies } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
 import { AppProps } from 'next/app';
 import '../styles/index.css';
-import { useRouter } from 'next/router';
-import { useDebouncedValue } from '@mantine/hooks';
 
 type Props = AppProps & {
     colorScheme: ColorScheme;

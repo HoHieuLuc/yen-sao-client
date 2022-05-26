@@ -1,7 +1,8 @@
 import { Center, Grid, Title, Box, createStyles } from '@mantine/core';
 import ImageGallery from 'react-image-gallery';
-import { SanPham } from '../../types';
+
 import { convertToVND } from '../../utils/common';
+import { SanPham } from '../../types';
 
 interface Props {
     data: SanPham

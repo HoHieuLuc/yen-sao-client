@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 
 import LoadingWrapper from '../../components/Utils/Wrappers/LoadingWrapper';
+import GenericError from '../../components/Utils/Errors/GenericError';
+import SanPhamDetails from '../../components/SanPham/SanPhamDetails';
 
 import { addApolloState, initializeApollo } from '../../graphql/client';
-import GenericError from '../../components/Utils/Errors/GenericError';
 import { sanPhamHooks, sanPhamService } from '../../graphql/queries';
 import { parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
-import SanPhamDetails from '../../components/SanPham/SanPhamDetails';
 
 const SanPham = () => {
     const router = useRouter();

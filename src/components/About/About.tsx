@@ -1,9 +1,9 @@
 import useStyles from './About.styles';
 
+import RichText from '../Utils/RichText/RichText';
 import { Spoiler } from '@mantine/core';
 
 import { AllPage } from '../../types';
-import RichText from '../Utils/RichText/RichText';
 
 interface Props {
     data: AllPage;
