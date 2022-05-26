@@ -1,7 +1,7 @@
 import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/client';
 import {
     AllSanPhams,
-    SanPhamByID,
+    SanPhamBySlug,
     SearchSanPhamVars,
 } from '../../types';
 
@@ -18,6 +18,7 @@ const ALL = gql`
                     donGiaSi
                     donGiaLe
                     donGiaTuyChon
+                    slug
                 }
                 pageInfo {
                     page
@@ -29,10 +30,10 @@ const ALL = gql`
     }
 `;
 
-const BY_ID = gql`
-    query SanPhamByID($id: ObjectID!) {
+const BY_SLUG = gql`
+    query SanPhamBySlug($slug: String!) {
         sanPham {
-            byID(id: $id) {
+            bySlug(slug: $slug) {
                 id
                 tenSanPham
                 soLuong
@@ -43,9 +44,7 @@ const BY_ID = gql`
                 xuatXu
                 tags
                 anhSanPham
-                isPublic
-                createdAt
-                updatedAt
+                slug
             }
         }
     }
@@ -55,22 +54,25 @@ const getAll = async (
     client: ApolloClient<NormalizedCacheObject>,
     variables: SearchSanPhamVars
 ) => {
-    await client.query<AllSanPhams, SearchSanPhamVars>({
+    return client.query<AllSanPhams, SearchSanPhamVars>({
         query: ALL,
         variables
     });
 };
 
-const getByID = async (client: ApolloClient<NormalizedCacheObject>, id: string) => {
-    await client.query({
-        query: BY_ID,
-        variables: { id }
+const getBySlug = async (client: ApolloClient<NormalizedCacheObject>, slug: string) => {
+    return client.query<
+        SanPhamBySlug, { slug: string }
+    >({
+        query: BY_SLUG,
+        variables: { slug }
     });
 };
 
+
 export const sanPhamService = {
     getAll,
-    getByID
+    getBySlug
 };
 
 const useAllSanPhams = (variables: SearchSanPhamVars) => {
@@ -81,18 +83,18 @@ const useAllSanPhams = (variables: SearchSanPhamVars) => {
     });
 };
 
-const useSanPhamByID = (id: string) => {
+const useSanPhamBySlug = (slug: string) => {
     return useQuery<
-        SanPhamByID, { id: string }
-    >(BY_ID, {
+        SanPhamBySlug, { slug: string }
+    >(BY_SLUG, {
         variables: {
-            id: id
+            slug
         }
     });
 };
 
 
 export const sanPhamHooks = {
-    useSanPhamByID,
     useAllSanPhams,
+    useSanPhamBySlug,
 };
