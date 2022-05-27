@@ -30,6 +30,26 @@ const ALL = gql`
     }
 `;
 
+const FEATURED = gql`
+    query AllFeaturedSanPhams {
+        sanPham {
+            all(page: 1, limit: 3, isFeatured: true) {
+                docs {
+                    id
+                    tenSanPham
+                    soLuong
+                    anhSanPham
+                    moTa
+                    donGiaSi
+                    donGiaLe
+                    donGiaTuyChon
+                    slug
+                }
+            }
+        }
+    }
+`;
+
 const BY_SLUG = gql`
     query SanPhamBySlug($slug: String!) {
         sanPham {
@@ -60,6 +80,12 @@ const getAll = async (
     });
 };
 
+const getFeatured = async (client: ApolloClient<NormalizedCacheObject>) => {
+    return client.query<AllSanPhams>({
+        query: FEATURED
+    });
+};
+
 const getBySlug = async (client: ApolloClient<NormalizedCacheObject>, slug: string) => {
     return client.query<
         SanPhamBySlug, { slug: string }
@@ -72,7 +98,8 @@ const getBySlug = async (client: ApolloClient<NormalizedCacheObject>, slug: stri
 
 export const sanPhamService = {
     getAll,
-    getBySlug
+    getBySlug,
+    getFeatured
 };
 
 const useAllSanPhams = (variables: SearchSanPhamVars) => {
@@ -81,6 +108,10 @@ const useAllSanPhams = (variables: SearchSanPhamVars) => {
     >(ALL, {
         variables
     });
+};
+
+const useFeaturedSanPhams = () => {
+    return useQuery<AllSanPhams>(FEATURED);
 };
 
 const useSanPhamBySlug = (slug: string) => {
@@ -97,4 +128,5 @@ const useSanPhamBySlug = (slug: string) => {
 export const sanPhamHooks = {
     useAllSanPhams,
     useSanPhamBySlug,
+    useFeaturedSanPhams,
 };

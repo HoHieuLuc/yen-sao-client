@@ -8,14 +8,17 @@ const AppContainer = ({ children }: Props) => {
     return (
         <Box
             sx={(theme) => ({
-                margin: theme.spacing.lg,
-                marginTop: 0
+                marginTop: 0,
+                margin: 0,
+                [theme.fn.largerThan('sm')]: {
+                    margin: theme.spacing.lg
+                }
             })}
         >
             <Paper p='sm' pt={0}>
                 {children}
             </Paper>
-        </Box>
+        </Box >
     );
 };
 

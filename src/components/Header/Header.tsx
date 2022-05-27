@@ -1,11 +1,13 @@
-import { useBooleanToggle, useClickOutside } from '@mantine/hooks';
+import { useBooleanToggle } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import useStyles from './Header.styles';
 
 import {
-    Header, Container, Group, Burger, Image,
-    Stack, Button, Collapse, Progress
+    Header, Container, Group, Burger,
+    Stack, Button, Progress, Drawer
 } from '@mantine/core';
+import Image from 'next/image';
+
 
 interface HeaderSimpleProps {
     links: {
@@ -20,7 +22,6 @@ interface HeaderSimpleProps {
 const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
     const [opened, toggleOpened] = useBooleanToggle(false);
     const { classes } = useStyles();
-    const menuRef = useClickOutside(() => toggleOpened(false));
     const router = useRouter();
 
     const items = links.map((link) => (
@@ -28,16 +29,13 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
             variant='subtle'
             key={link.label}
             styles={(theme) => ({
-                inner: {
-                    [theme.fn.smallerThan('xs')]: {
-                        justifyContent: 'flex-start'
-                    }
-                },
                 root: {
                     [theme.fn.smallerThan('xs')]: {
                         width: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-start'
                     },
-                }
+                },
             })}
             onClick={() => {
                 if (link.link && link.link !== router.pathname) {
@@ -55,19 +53,22 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
 
     return (
         <>
-            <Header ref={menuRef} height={60} style={{ position: 'sticky' }}>
+            <Header height='4rem' style={{ position: 'sticky' }}>
                 {
                     !loading && !debouncedLoading
                         ? <></>
                         : <Progress animate value={loading ? 30 : 100} size='sm' />
                 }
                 <Container className={classes.header}>
-                    <Image
-                        src='/logo.jpg'
-                        alt='logo'
-                        fit='contain'
-                        width={60}
-                    />
+                    <div style={{ width: '3rem', height: '3rem' }}>
+                        <Image
+                            src='/logo.png'
+                            layout='responsive'
+                            width='100%'
+                            height='100%'
+                            objectFit='scale-down'
+                        />
+                    </div>
                     <Group spacing={5} className={classes.links}>
                         {items}
                     </Group>
@@ -76,20 +77,21 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                         opened={opened}
                         onClick={() => toggleOpened()}
                         className={classes.burger}
-                        size="sm"
+                        size='sm'
                     />
                 </Container>
             </Header>
-            <Collapse
-                in={opened}
-                style={{
-                    position: 'fixed',
-                    top: 60,
-                    zIndex: 1,
-                    backgroundColor: 'white',
-                    width: '100%',
-                    borderBottom: '1px solid #e5e5e5',
-                }}
+            <Drawer
+                opened={opened}
+                onClose={() => toggleOpened(false)}
+                styles={(theme) => ({
+                    root: {
+                        [theme.fn.largerThan('xs')]: {
+                            display: 'none'
+                        }
+                    }
+                })}
+                closeOnClickOutside
             >
                 <Stack
                     spacing='xs'
@@ -98,7 +100,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                 >
                     {items}
                 </Stack>
-            </Collapse>
+            </Drawer>
         </>
     );
 };
