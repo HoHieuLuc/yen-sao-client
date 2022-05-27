@@ -12,6 +12,7 @@ const LoadingWrapper = ({ children, loading }: Props) => {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
+            minHeight: '30rem'
         }}>
             <div style={{ flexGrow: 1 }}>
                 <LoadingOverlay visible={loading} />
