@@ -1,23 +1,26 @@
 import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/client';
 import { AllPage } from '../../types/page';
 
+const page = `
+    id
+    name
+    content
+`;
+
 const ALL = gql`
     query AllPages {
         page {
             about: byName(name: "about") {
-                id
-                name
-                content
+                ${page}
             }
             address: byName(name: "address") {
-                id
-                name
-                content
+                ${page}
             }
             phone: byName(name: "phone") {
-                id
-                name
-                content
+                ${page}
+            }
+            facebook: byName(name: "facebook") {
+                ${page}
             }
         }
     }
