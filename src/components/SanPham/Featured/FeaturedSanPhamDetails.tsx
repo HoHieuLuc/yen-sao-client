@@ -1,9 +1,10 @@
-import { Box, Center, Divider, Grid, Text } from '@mantine/core';
-import React from 'react';
-import { convertToVND } from '../../../utils/common';
-import Image from 'next/image';
-import { SanPham } from '../../../types';
 import { useRouter } from 'next/router';
+
+import { Box, Center, Divider, Grid, Text } from '@mantine/core';
+import Image from 'next/image';
+
+import { convertToVND } from '../../../utils/common';
+import { SanPham } from '../../../types';
 
 interface Props {
     data: SanPham;

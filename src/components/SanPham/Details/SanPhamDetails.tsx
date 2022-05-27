@@ -1,14 +1,16 @@
+import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
 import { Center, Grid, Title, Box } from '@mantine/core';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
 
 import { convertToVND } from '../../../utils/common';
 import { SanPham } from '../../../types';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
-import 'swiper/css';
+
+import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
-import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
+import 'swiper/css';
+
 interface Props {
     data: SanPham
 }
