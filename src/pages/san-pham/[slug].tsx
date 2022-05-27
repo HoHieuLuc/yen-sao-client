@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 
+import SanPhamDetails from '../../components/SanPham/Details/SanPhamDetails';
 import LoadingWrapper from '../../components/Utils/Wrappers/LoadingWrapper';
 import GenericError from '../../components/Utils/Errors/GenericError';
-import SanPhamDetails from '../../components/SanPham/SanPhamDetails';
 
 import { addApolloState, initializeApollo } from '../../graphql/client';
 import { sanPhamHooks, sanPhamService } from '../../graphql/queries';
