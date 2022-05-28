@@ -1,10 +1,10 @@
 import useStyles from '../../About/About.styles';
 
-import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
 import { Center, Grid, Text, Box, Paper, Stack, Title, Spoiler } from '@mantine/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 
+import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
 import { convertToVND } from '../../../utils/common';
 import { SanPham } from '../../../types';
 
