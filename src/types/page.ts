@@ -1,23 +1,23 @@
 export interface BasePage<T> {
     id: string;
     name: string;
-    content: {
-        value: T;
-    }
+    content: T;
 }
 
 export interface About {
-    about?: BasePage<string>;
+    about?: BasePage<{
+        value: string;
+    }>;
 }
 
-export interface Address {
-    address?: BasePage<Array<string>>;
+export interface WebsiteInfo {
+    websiteInfo?: BasePage<{
+        address?: Array<string>;
+        phone?: Array<string>;
+        facebook?: string;
+    }>
 }
 
-export interface PhoneNumber {
-    phone?: BasePage<Array<string>>;
-}
-
-export interface AllPage {
-    page: About & Address & PhoneNumber;
+export interface AllPages {
+    page: About & WebsiteInfo;
 }

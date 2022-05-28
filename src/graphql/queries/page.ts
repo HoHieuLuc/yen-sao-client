@@ -1,5 +1,5 @@
 import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/client';
-import { AllPage } from '../../types/page';
+import { AllPages } from '../../types/page';
 
 const page = `
     id
@@ -13,13 +13,7 @@ const ALL = gql`
             about: byName(name: "about") {
                 ${page}
             }
-            address: byName(name: "address") {
-                ${page}
-            }
-            phone: byName(name: "phone") {
-                ${page}
-            }
-            facebook: byName(name: "facebook") {
+            websiteInfo: byName(name: "websiteInfo") {
                 ${page}
             }
         }
@@ -27,7 +21,7 @@ const ALL = gql`
 `;
 
 const getAll = async (client: ApolloClient<NormalizedCacheObject>) => {
-    return client.query<AllPage>({
+    return client.query<AllPages>({
         query: ALL
     });
 };
@@ -38,7 +32,7 @@ export const pageService = {
 
 const useAllPages = () => {
     return useQuery<
-        AllPage
+        AllPages
     >(ALL);
 };
 

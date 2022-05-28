@@ -1,10 +1,10 @@
 import useStyles from './About.styles';
 
-import { AllPage } from '../../types';
+import { AllPages } from '../../types';
 import { Spoiler } from '@mantine/core';
 
 interface Props {
-    data: AllPage;
+    data: AllPages;
 }
 
 const About = ({ data }: Props) => {

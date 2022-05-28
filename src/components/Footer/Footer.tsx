@@ -3,15 +3,18 @@ import useStyles from './Footer.styles';
 import { Text, Container, Grid, Box } from '@mantine/core';
 import Image from 'next/image';
 
-import { AllPage } from '../../types';
+import { AllPages } from '../../types';
 
 
 interface Props {
-    data: AllPage;
+    data: AllPages;
 }
 
 const AppFooter = ({ data }: Props) => {
     const { classes } = useStyles();
+    const addresses = data.page.websiteInfo ? (data.page.websiteInfo.content.address || []) : [];
+    const phones = data.page.websiteInfo ? (data.page.websiteInfo.content.phone || []) : [];
+
     return (
         <Box className={classes.footer}>
             <Container className={classes.inner}>
@@ -30,8 +33,8 @@ const AppFooter = ({ data }: Props) => {
                     <Grid justify='center'>
                         <Grid.Col span={4} md={2}>Địa chỉ:</Grid.Col>
                         <Grid.Col span={8} md={10}>
-                            {data.page.address && data.page.address.content.value.length > 0
-                                ? data.page.address.content.value.map(
+                            {addresses.length > 0
+                                ? addresses.map(
                                     (item, index) => (
                                         <Text key={`${item}:${index}`}>{item}</Text>
                                     ))
@@ -40,8 +43,8 @@ const AppFooter = ({ data }: Props) => {
                         </Grid.Col>
                         <Grid.Col span={4} md={2}>Số điện thoại:</Grid.Col>
                         <Grid.Col span={8} md={10}>
-                            {data.page.phone && data.page.phone.content.value.length > 0
-                                ? data.page.phone.content.value.map(
+                            {phones.length > 0
+                                ? phones.map(
                                     (item, index) => (
                                         <Text key={`${item}:${index}`}>{item}</Text>
                                     ))
