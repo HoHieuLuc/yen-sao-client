@@ -27,13 +27,18 @@ const SanPhamCard = ({ data }: Props) => {
             <Card.Section>
                 <div style={{ position: 'relative' }}>
                     <Image
-                        alt='Ảnh sản phẩm'
+                        alt={data.tenSanPham}
                         src={data.anhSanPham[0]}
                         layout='responsive'
                         width='100%'
                         height='100%'
                         objectFit='cover'
                         priority
+                        sizes='100%'
+                        onClick={() => void router.push(`/san-pham/${data.slug}`)}
+                        style={{
+                            cursor: 'pointer'
+                        }}
                     />
                     <Badge
                         color='pink'
@@ -49,7 +54,16 @@ const SanPhamCard = ({ data }: Props) => {
                 </div>
             </Card.Section>
 
-            <Text weight={500} lineClamp={1}>{data.tenSanPham}</Text>
+            <Text
+                weight={500}
+                lineClamp={1}
+                onClick={() => void router.push(`/san-pham/${data.slug}`)}
+                style={{
+                    cursor: 'pointer'
+                }}
+            >
+                {data.tenSanPham}
+            </Text>
             <Text size='sm'>
                 {data.donGiaTuyChon
                     ? <Text size='sm'>
