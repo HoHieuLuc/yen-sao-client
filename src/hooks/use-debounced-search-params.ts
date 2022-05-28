@@ -12,14 +12,20 @@ export const useDebouncedSearchParams = (wait = 200) => {
 
     useEffect(() => {
         if (debouncedSearch !== '') {
+            delete query.page;            
             void router.replace({
-                pathname: '/',
+                pathname: router.pathname,
                 query: {
-                    search: debouncedSearch
+                    ...query,
+                    search: debouncedSearch,
                 }
             }, undefined, { shallow: true });
         } else {
-            void router.replace('/', undefined, { shallow: true });
+            delete query.search;
+            void router.push({
+                pathname: router.pathname,
+                query,
+            }, undefined, { shallow: true });
         }
     }, [debouncedSearch]);
 
