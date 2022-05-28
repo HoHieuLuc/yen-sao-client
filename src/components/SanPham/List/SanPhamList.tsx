@@ -1,7 +1,7 @@
 import { useDebouncedSearchParams } from '../../../hooks/use-debounced-search-params';
 import { usePagination } from '../../../hooks';
 
-import { Center, Grid, Pagination, Stack, TextInput, Title } from '@mantine/core';
+import { Center, Grid, Pagination, Stack, TextInput } from '@mantine/core';
 import LoadingWrapper from '../../Utils/Wrappers/LoadingWrapper';
 import SanPhamCard from './SanPhamCard';
 
@@ -24,9 +24,6 @@ const SanPhamList = () => {
 
     return (
         <Stack spacing='xs'>
-            <Center>
-                <Title>Sản phẩm của chúng tôi</Title>
-            </Center>
             <TextInput
                 label='Tìm kiếm'
                 placeholder='Tìm kiếm'

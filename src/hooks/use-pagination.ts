@@ -10,7 +10,17 @@ export const usePagination = () => {
 
     useEffect(() => {
         if (currentPage === 1) {
-            void router.replace('/', undefined, { shallow: true });
+            delete query.page;
+            void router.replace(
+                {
+                    pathname: router.pathname,
+                    query,
+                },
+                undefined,
+                {
+                    shallow: true
+                }
+            );
         }
     }, []);
 
@@ -20,12 +30,13 @@ export const usePagination = () => {
                 pathname: router.pathname,
                 query: {
                     ...query,
-                    page
+                    page,
                 }
             },
             undefined,
             {
-                scroll: false
+                scroll: false,
+                shallow: true
             }
         );
     };

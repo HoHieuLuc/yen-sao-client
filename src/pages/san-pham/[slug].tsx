@@ -5,9 +5,11 @@ import LoadingWrapper from '../../components/Utils/Wrappers/LoadingWrapper';
 import GenericError from '../../components/Utils/Errors/GenericError';
 
 import { addApolloState, initializeApollo } from '../../graphql/client';
-import { sanPhamHooks, sanPhamService } from '../../graphql/queries';
-import { parseString } from '../../utils/common';
+import { pageService, sanPhamHooks, sanPhamService } from '../../graphql/queries';
+import { parseNumber, parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
+import { Divider, Stack } from '@mantine/core';
+import SanPhamList from '../../components/SanPham/List/SanPhamList';
 
 const SanPham = () => {
     const router = useRouter();
@@ -23,11 +25,17 @@ const SanPham = () => {
     }
 
     return (
-        <LoadingWrapper loading={loading}>
-            {data && data.sanPham.bySlug &&
-                <SanPhamDetails data={data.sanPham.bySlug} />
-            }
-        </LoadingWrapper>
+        <>
+            <LoadingWrapper loading={loading}>
+                <Stack spacing='xs'>
+                    {data && data.sanPham.bySlug &&
+                        <SanPhamDetails data={data.sanPham.bySlug} />
+                    }
+                    <Divider />
+                    <SanPhamList />
+                </Stack>
+            </LoadingWrapper>
+        </>
     );
 };
 
@@ -35,7 +43,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const client = initializeApollo();
     const { query } = context;
     await sanPhamService.getBySlug(client, parseString(query.slug));
-
+    await sanPhamService.getAll(client, {
+        page: parseNumber(query.page, 1),
+        limit: 12,
+        search: parseString(query.search)
+    });
+    await pageService.getAll(client);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {
         props: {}

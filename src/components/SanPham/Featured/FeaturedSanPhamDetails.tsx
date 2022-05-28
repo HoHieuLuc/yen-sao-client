@@ -19,10 +19,16 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
             <Grid m='xs'>
                 <Grid.Col
                     md={6}
-                    style={{
-                        order: index % 2 === 0 ? 0 : 1,
-
-                    }}
+                    sx={(theme) => ({
+                        [theme.fn.largerThan('md')]: {
+                            order: index % 2 === 0 ? 0 : 1,
+                        },
+                        transition: 'transform 0.5s ease-in-out',
+                        '&:hover': {
+                            transform: `perspective(40rem) rotate3d(0, 1, 0, 
+                                ${index % 2 === 0 ? '20' : '-20'}deg)`,
+                        }
+                    })}
                 >
                     <Image
                         alt='Ảnh sản phẩm'
@@ -32,10 +38,13 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                         height={128}
                         priority
                         style={{
-                            borderRadius: 10
+                            borderRadius: 10,
+                            cursor: 'pointer',
+
                         }}
                         objectFit='cover'
                         sizes='30vw'
+                        onClick={() => void router.push(`/san-pham/${data.slug}`)}
                     />
                 </Grid.Col>
                 <Grid.Col md={6}>
