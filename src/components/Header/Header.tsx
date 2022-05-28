@@ -62,11 +62,17 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                 <Container className={classes.header}>
                     <div style={{ width: '3rem', height: '3rem' }}>
                         <Image
+                            alt='logo'
                             src='/logo.png'
                             layout='responsive'
                             width='100%'
                             height='100%'
                             objectFit='scale-down'
+                            sizes='100%'
+                            style={{
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => void router.push('/')}
                         />
                     </div>
                     <Group spacing={5} className={classes.links}>
