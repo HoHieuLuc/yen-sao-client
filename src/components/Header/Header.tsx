@@ -57,7 +57,11 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                 {
                     !loading && !debouncedLoading
                         ? <></>
-                        : <Progress animate value={loading ? 30 : 100} size='sm' />
+                        : <Progress
+                            animate
+                            value={loading ? 30 : 100}
+                            size='sm'
+                        />
                 }
                 <Container className={classes.header}>
                     <div style={{ width: '3rem', height: '3rem' }}>
