@@ -10,6 +10,7 @@ import { parseNumber, parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
 import { Divider, Stack } from '@mantine/core';
 import SanPhamList from '../../components/SanPham/List/SanPhamList';
+import Head from 'next/head';
 
 const SanPham = () => {
     const router = useRouter();
@@ -26,6 +27,11 @@ const SanPham = () => {
 
     return (
         <>
+            <Head>
+                {data && data.sanPham.bySlug &&
+                    <title>{data && data.sanPham.bySlug.tenSanPham} | Yến Sào Ms. Tưởng</title>
+                }
+            </Head>
             <LoadingWrapper loading={loading}>
                 <Stack spacing='xs'>
                     {data && data.sanPham.bySlug &&
