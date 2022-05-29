@@ -32,7 +32,7 @@ export interface AllSanPhams {
     }
 }
 
-export interface SearchSanPhamVars extends PaginateVars {
+export interface AllSanPhamVars extends PaginateVars {
     search: string;
     sort?: string | null;
 }
