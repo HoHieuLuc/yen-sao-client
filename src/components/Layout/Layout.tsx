@@ -57,14 +57,19 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                     </footer>
                 )}
             </Stack>
-            <AppAffix
-                label='Facebook'
-                onClick={() => window.open(data?.page.websiteInfo?.content.facebook, '_blank')}
-                position={{ bottom: 20, right: 20 }}
-                variant='gradient'
-                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
-                buttonIcon={<FontAwesomeIcon icon={faFacebookF} />}
-            />
+            {data && data.page.websiteInfo && data.page.websiteInfo.content.facebook &&
+                <AppAffix
+                    label='Facebook'
+                    onClick={() => window.open(
+                        data.page.websiteInfo?.content.facebook,
+                        '_blank')
+                    }
+                    position={{ bottom: 20, right: 20 }}
+                    variant='gradient'
+                    gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                    buttonIcon={<FontAwesomeIcon icon={faFacebookF} />}
+                />
+            }
         </>
     );
 };
