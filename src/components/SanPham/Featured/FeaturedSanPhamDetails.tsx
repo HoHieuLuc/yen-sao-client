@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useStyles from './FeaturedSanPhamDetails.styles';
 
 import { Box, Center, Divider, Grid, Text } from '@mantine/core';
 import Image from 'next/image';
@@ -13,22 +14,14 @@ interface Props {
 
 const FeaturedSanPhamDetails = ({ data, index }: Props) => {
     const router = useRouter();
+    const { classes } = useStyles({ index });
 
     return (
         <Box>
             <Grid m='xs'>
                 <Grid.Col
                     md={6}
-                    sx={(theme) => ({
-                        [theme.fn.largerThan('md')]: {
-                            order: index % 2 === 0 ? 0 : 1,
-                        },
-                        transition: 'transform 0.5s ease-in-out',
-                        '&:hover': {
-                            transform: `perspective(40rem) rotate3d(0, 1, 0, 
-                                ${index % 2 === 0 ? '20' : '-20'}deg)`,
-                        }
-                    })}
+                    className={classes.imgCol}
                 >
                     <Image
                         alt='Ảnh sản phẩm'
@@ -40,7 +33,6 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                         style={{
                             borderRadius: 10,
                             cursor: 'pointer',
-
                         }}
                         objectFit='cover'
                         sizes='30vw'
@@ -52,10 +44,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                         <Box>
                             <Center>
                                 <Text
-                                    style={{
-                                        fontSize: '5vh',
-                                        cursor: 'pointer'
-                                    }}
+                                    className={classes.title}
                                     weight={700}
                                     variant='gradient'
                                     gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
@@ -66,9 +55,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                             </Center>
                             <Text
                                 lineClamp={2}
-                                style={{
-                                    fontSize: '3vh'
-                                }}
+                                className={classes.description}
                                 dangerouslySetInnerHTML={{
                                     __html: data.moTa
                                 }}
@@ -76,13 +63,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                             {data.donGiaTuyChon
                                 ? <Center>
                                     <Text
-                                        style={{
-                                            fontSize: '4vh',
-                                            background: `linear-gradient(to right, purple 50%, blue 100%)`,
-                                            WebkitBackgroundClip: 'text',
-                                            WebkitTextFillColor: 'transparent',
-                                            textAlign: 'center'
-                                        }}
+                                        className={classes.retailPrice}
                                     >
                                         {data.donGiaTuyChon}
                                     </Text>
@@ -92,12 +73,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                                     <Center>
                                         <Text>
                                             <span
-                                                style={{
-                                                    fontSize: '4vh',
-                                                    background: `linear-gradient(to right, purple 50%, blue 100%)`,
-                                                    WebkitBackgroundClip: 'text',
-                                                    WebkitTextFillColor: 'transparent',
-                                                }}
+                                                className={classes.retailPrice}
                                             >
                                                 {convertToVND(data.donGiaLe)}
                                             </span>
@@ -107,12 +83,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                                     <Center>
                                         <Text>
                                             <span
-                                                style={{
-                                                    fontSize: '4vh',
-                                                    background: `linear-gradient(to right, red 0%, #330867 100%)`,
-                                                    WebkitBackgroundClip: 'text',
-                                                    WebkitTextFillColor: 'transparent',
-                                                }}
+                                                className={classes.wholesalePrice}
                                             >
                                                 {convertToVND(data.donGiaSi)}
                                             </span>
@@ -126,7 +97,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                 </Grid.Col>
             </Grid>
             <Divider />
-        </Box>
+        </Box >
     );
 };
 
