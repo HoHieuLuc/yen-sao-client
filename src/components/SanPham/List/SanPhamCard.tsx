@@ -1,3 +1,4 @@
+import useStyles from './SanPhamCard.styles';
 import { useRouter } from 'next/router';
 
 import { Badge, Box, Button, Card, Text } from '@mantine/core';
@@ -12,16 +13,13 @@ interface Props {
 
 const SanPhamCard = ({ data }: Props) => {
     const router = useRouter();
+    const { classes } = useStyles();
 
     return (
         <Card
             shadow='sm'
             p='xs'
-            style={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
+            className={classes.card}
             withBorder
         >
             <Card.Section>
@@ -36,18 +34,12 @@ const SanPhamCard = ({ data }: Props) => {
                         priority
                         sizes='100%'
                         onClick={() => void router.push(`/san-pham/${data.slug}`)}
-                        style={{
-                            cursor: 'pointer'
-                        }}
+                        className={classes.img}
                     />
                     <Badge
                         color='pink'
                         variant='light'
-                        style={{
-                            position: 'absolute',
-                            top: 5,
-                            right: 5,
-                        }}
+                        className={classes.badge}
                     >
                         Đang bán
                     </Badge>
@@ -93,6 +85,7 @@ const SanPhamCard = ({ data }: Props) => {
                 color='blue'
                 fullWidth
                 onClick={() => void router.push(`/san-pham/${data.slug}`)}
+                className='draw'
             >
                 Chi tiết
             </Button>
