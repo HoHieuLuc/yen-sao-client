@@ -1,6 +1,9 @@
 import { useScrollIntoView } from '@mantine/hooks';
 
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AppContainer from '../Utils/Wrappers/AppContainer';
+import AppAffix from '../Utils/Affix/AppAffix';
 import AppHeader from '../Header/Header';
 import AppFooter from '../Footer/Footer';
 import { Stack } from '@mantine/core';
@@ -54,6 +57,14 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                     </footer>
                 )}
             </Stack>
+            <AppAffix
+                label='Facebook'
+                onClick={() => window.open(data?.page.websiteInfo?.content.facebook, '_blank')}
+                position={{ bottom: 20, right: 20 }}
+                variant='gradient'
+                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                buttonIcon={<FontAwesomeIcon icon={faFacebookF} />}
+            />
         </>
     );
 };
