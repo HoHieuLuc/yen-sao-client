@@ -2,13 +2,13 @@ import { ApolloClient, gql, NormalizedCacheObject, useQuery } from '@apollo/clie
 import {
     AllSanPhams,
     SanPhamBySlug,
-    SearchSanPhamVars,
+    AllSanPhamVars,
 } from '../../types';
 
 const ALL = gql`
-    query AllSanPhams($page: Int!, $limit: Int!, $search: String, $sort: SortSanPham) {
+    query AllSanPhams($page: Int!, $limit: Int!, $search: String) {
         sanPham {
-            all(page: $page, limit: $limit, search: $search, sort: $sort) {
+            all(page: $page, limit: $limit, search: $search) {
                 docs {
                     id
                     tenSanPham
@@ -72,9 +72,9 @@ const BY_SLUG = gql`
 
 const getAll = async (
     client: ApolloClient<NormalizedCacheObject>,
-    variables: SearchSanPhamVars
+    variables: AllSanPhamVars
 ) => {
-    return client.query<AllSanPhams, SearchSanPhamVars>({
+    return client.query<AllSanPhams, AllSanPhamVars>({
         query: ALL,
         variables
     });
@@ -102,9 +102,9 @@ export const sanPhamService = {
     getFeatured
 };
 
-const useAllSanPhams = (variables: SearchSanPhamVars) => {
+const useAllSanPhams = (variables: AllSanPhamVars) => {
     return useQuery<
-        AllSanPhams, SearchSanPhamVars
+        AllSanPhams, AllSanPhamVars
     >(ALL, {
         variables
     });

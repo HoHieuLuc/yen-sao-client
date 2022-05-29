@@ -31,7 +31,6 @@ const SanPhamDetails = ({ data }: Props) => {
                     })}
                 >
                     <Swiper
-                        spaceBetween={50}
                         effect='coverflow'
                         grabCursor={true}
                         centeredSlides={true}
@@ -45,7 +44,7 @@ const SanPhamDetails = ({ data }: Props) => {
                             stretch: 0,
                             depth: 100,
                             modifier: 1,
-                            slideShadows: true,
+                            slideShadows: false
                         }}
                     >
                         {data.anhSanPham.map((anh, index) => (

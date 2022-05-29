@@ -77,6 +77,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                                 cursor: 'pointer'
                             }}
                             onClick={() => void router.push('/')}
+                            priority
                         />
                     </div>
                     <Group spacing={5} className={classes.links}>
