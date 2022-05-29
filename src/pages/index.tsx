@@ -1,6 +1,8 @@
 import { useScrollIntoView } from '@mantine/hooks';
 
 import FeaturedSanPham from '../components/SanPham/Featured/FeaturedSanPham';
+import { faList, faWandSparkles } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SanPhamList from '../components/SanPham/List/SanPhamList';
 import AppAffix from '../components/Utils/Affix/AppAffix';
 import About from '../components/About/About';
@@ -31,20 +33,20 @@ export default function HomePage() {
                 <SanPhamList />
             </div>
             <AppAffix
-                label='Tất cả sản phẩm'
-                onClick={() => scrollToSanPhamList.scrollIntoView()}
-                mounted={true}
-                position={{ bottom: 20, right: 20 }}
-                variant='gradient'
-                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
-            />
-            <AppAffix
                 label='Sản phẩm tiêu biểu'
                 onClick={() => scrollToFeaturedSanPhams.scrollIntoView()}
-                mounted={true}
-                position={{ bottom: 20, right: 200 }}
+                position={{ bottom: 120, right: 20 }}
                 variant='gradient'
                 gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                buttonIcon={<FontAwesomeIcon icon={faWandSparkles} />}
+            />
+            <AppAffix
+                label='Tất cả sản phẩm'
+                onClick={() => scrollToSanPhamList.scrollIntoView()}
+                position={{ bottom: 70, right: 20 }}
+                variant='gradient'
+                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                buttonIcon={<FontAwesomeIcon icon={faList} />}
             />
         </Stack>
     );
@@ -53,13 +55,15 @@ export default function HomePage() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const client = initializeApollo();
     const { query } = context;
+
     await sanPhamService.getAll(client, {
+        search: parseString(query.search),
         page: parseNumber(query.page, 1),
         limit: 12,
-        search: parseString(query.search)
     });
     await sanPhamService.getFeatured(client);
     await pageService.getAll(client);
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {
         props: {}
