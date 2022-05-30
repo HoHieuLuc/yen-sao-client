@@ -18,7 +18,7 @@ const AppFooter = ({ data }: Props) => {
     return (
         <Box className={classes.footer}>
             <Container className={classes.inner}>
-                <div style={{ width: '4rem', height: '4rem' }}>
+                <div style={{ width: '6rem', height: '6rem' }}>
                     <Image
                         alt='logo'
                         src='/logo.png'
@@ -29,30 +29,28 @@ const AppFooter = ({ data }: Props) => {
                         sizes='100%'
                     />
                 </div>
-                <div style={{ marginLeft: 'auto' }}>
-                    <Grid justify='center'>
-                        <Grid.Col span={4} md={2}>Địa chỉ:</Grid.Col>
-                        <Grid.Col span={8} md={10}>
-                            {addresses.length > 0
-                                ? addresses.map(
-                                    (item, index) => (
-                                        <Text key={`${item}:${index}`}>{item}</Text>
-                                    ))
-                                : 'Địa chỉ chưa được cập nhật'
-                            }
-                        </Grid.Col>
-                        <Grid.Col span={4} md={2}>Số điện thoại:</Grid.Col>
-                        <Grid.Col span={8} md={10}>
-                            {phones.length > 0
-                                ? phones.map(
-                                    (item, index) => (
-                                        <Text key={`${item}:${index}`}>{item}</Text>
-                                    ))
-                                : 'Số điện thoại chưa được cập nhật'
-                            }
-                        </Grid.Col>
-                    </Grid>
-                </div>
+                <Grid>
+                    <Grid.Col span={4} md={2}>Địa chỉ:</Grid.Col>
+                    <Grid.Col span={8} md={10}>
+                        {addresses.length > 0
+                            ? addresses.map(
+                                (item, index) => (
+                                    <Text key={`${item}:${index}`}>{item}</Text>
+                                ))
+                            : 'Địa chỉ chưa được cập nhật'
+                        }
+                    </Grid.Col>
+                    <Grid.Col span={4} md={2}>Số điện thoại:</Grid.Col>
+                    <Grid.Col span={8} md={10}>
+                        {phones.length > 0
+                            ? phones.map(
+                                (item, index) => (
+                                    <Text key={`${item}:${index}`}>{item}</Text>
+                                ))
+                            : 'Số điện thoại chưa được cập nhật'
+                        }
+                    </Grid.Col>
+                </Grid>
             </Container>
             <Container className={classes.afterFooter}>
                 <Text color="dimmed" size="sm">
