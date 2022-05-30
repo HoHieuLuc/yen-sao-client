@@ -1,10 +1,11 @@
 import { createStyles } from '@mantine/core';
 
-export default createStyles(() => ({
+export default createStyles((theme) => ({
     card: {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        borderRadius: theme.radius.md,
     },
     img: {
         cursor: 'pointer',
