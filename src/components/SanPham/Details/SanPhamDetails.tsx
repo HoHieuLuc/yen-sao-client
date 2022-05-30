@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
 import { convertToVND } from '../../../utils/common';
-import { SanPham } from '../../../types';
+import { AllPages, SanPham } from '../../../types';
 
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
@@ -14,11 +14,13 @@ import 'swiper/css/pagination';
 import 'swiper/css';
 
 interface Props {
-    data: SanPham
+    data: SanPham;
+    pageData?: AllPages;
 }
 
-const SanPhamDetails = ({ data }: Props) => {
+const SanPhamDetails = ({ data, pageData }: Props) => {
     const { classes } = useStyles();
+    const phones = pageData?.page.websiteInfo?.content.phone;
     return (
         <Stack p={0}>
             <Grid>
@@ -77,17 +79,14 @@ const SanPhamDetails = ({ data }: Props) => {
                             {data.tenSanPham}
                         </Text>
                         {data.donGiaTuyChon
-                            ? <Center>
-                                <Text
-                                    style={{
-                                        fontSize: '4vh',
-                                    }}
-                                >
-                                    {data.donGiaTuyChon}
-                                </Text>
-                            </Center>
-                            :
-                            <>
+                            ? <Text
+                                style={{
+                                    fontSize: '4vh',
+                                }}
+                            >
+                                {data.donGiaTuyChon}
+                            </Text>
+                            : <>
                                 <Text>
                                     <span
                                         style={{
@@ -117,6 +116,16 @@ const SanPhamDetails = ({ data }: Props) => {
                         {data.xuatXu && <Text>
                             Xuất xứ: {data.xuatXu}
                         </Text>}
+                        {phones && phones.length > 0 &&
+                            <Text
+                                weight={700}
+                                size='xl'
+                                variant='gradient'
+                                gradient={{ from: 'brown', to: 'red', deg: 45 }}
+                            >
+                                Liên hệ: {phones.join(', ')}
+                            </Text>
+                        }
                     </Box>
                 </Grid.Col>
             </Grid >
