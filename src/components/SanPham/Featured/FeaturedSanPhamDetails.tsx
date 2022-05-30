@@ -1,5 +1,6 @@
-import { useRouter } from 'next/router';
 import useStyles from './FeaturedSanPhamDetails.styles';
+import { useInView } from 'react-intersection-observer';
+import { useRouter } from 'next/router';
 
 import { Box, Center, Divider, Grid, Text } from '@mantine/core';
 import Image from 'next/image';
@@ -14,7 +15,10 @@ interface Props {
 
 const FeaturedSanPhamDetails = ({ data, index }: Props) => {
     const router = useRouter();
-    const { classes } = useStyles({ index });
+    const { ref, inView } = useInView({
+        threshold: 0,
+    });
+    const { classes } = useStyles({ index, inView });
 
     return (
         <Box>
@@ -39,9 +43,9 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                         onClick={() => void router.push(`/san-pham/${data.slug}`)}
                     />
                 </Grid.Col>
-                <Grid.Col md={6}>
+                <Grid.Col md={6} className={classes.textCol}>
                     <Center style={{ width: '100%', height: '100%' }}>
-                        <Box>
+                        <Box ref={ref}>
                             <Center>
                                 <Text
                                     className={classes.title}

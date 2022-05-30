@@ -7,7 +7,7 @@ import SanPhamList from '../../components/SanPham/List/SanPhamList';
 import { Divider, Stack } from '@mantine/core';
 import Head from 'next/head';
 
-import { pageService, sanPhamHooks, sanPhamService } from '../../graphql/queries';
+import { pageHooks, pageService, sanPhamHooks, sanPhamService } from '../../graphql/queries';
 import { addApolloState, initializeApollo } from '../../graphql/client';
 import { parseNumber, parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
@@ -16,6 +16,7 @@ const SanPham = () => {
     const router = useRouter();
     const { slug } = router.query;
     const { data, loading } = sanPhamHooks.useSanPhamBySlug(parseString(slug));
+    const pageResult = pageHooks.useAllPages();
 
     if (data && !data.sanPham.bySlug) {
         return <GenericError
@@ -29,7 +30,6 @@ const SanPham = () => {
         <>
             {data && data.sanPham.bySlug &&
                 <Head>
-                    {/* wowzer */}
                     <title>{`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}</title>
                     <meta
                         property='og:description'
@@ -39,8 +39,11 @@ const SanPham = () => {
             }
             <LoadingWrapper loading={loading}>
                 <Stack spacing='xs'>
-                    {data && data.sanPham.bySlug &&
-                        <SanPhamDetails data={data.sanPham.bySlug} />
+                    {data && data.sanPham.bySlug && 
+                        <SanPhamDetails
+                            data={data.sanPham.bySlug}
+                            pageData={pageResult.data}
+                        />
                     }
                     <Divider label='Danh mục sản phẩm' labelPosition='center' />
                     <SanPhamList />

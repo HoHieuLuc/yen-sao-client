@@ -28,6 +28,7 @@
         "next": "12.1.4",
         "react": "18.1.0",
         "react-dom": "18.1.0",
+        "react-intersection-observer": "^9.2.0",
         "swiper": "^8.1.6"
     },
     "devDependencies": {

@@ -1,10 +1,29 @@
-import { createStyles } from '@mantine/core';
+import { createStyles, keyframes } from '@mantine/core';
 
 interface StyleParams {
     index: number;
+    inView: boolean;
 }
 
-export default createStyles((theme, { index }: StyleParams) => ({
+const fadeIn = keyframes({
+    '0%': {
+        opacity: 0,
+    },
+    '100%': {
+        opacity: 1,
+    },
+});
+
+const fadeOut = keyframes({
+    '0%': {
+        opacity: 1,
+    },
+    '100%': {
+        opacity: 0,
+    },
+});
+
+export default createStyles((theme, { index, inView }: StyleParams) => ({
     imgCol: {
         [theme.fn.largerThan('md')]: {
             order: index % 2 === 0 ? 0 : 1,
@@ -22,9 +41,12 @@ export default createStyles((theme, { index }: StyleParams) => ({
             zIndex: 10
         }
     },
+    textCol: {
+        animation: inView ? `${fadeIn} 0.7s ease-in-out` : `${fadeOut} 0.7s ease-in-out`,
+    },
     title: {
         fontSize: '5vh',
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     description: {
         fontSize: '3vh'
