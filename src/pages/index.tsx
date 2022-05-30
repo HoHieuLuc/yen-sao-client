@@ -33,7 +33,7 @@ export default function HomePage() {
                 <SanPhamList />
             </div>
             <AppAffix
-                label='Sản phẩm tiêu biểu'
+                label='Sản phẩm nổi bật'
                 onClick={() => scrollToFeaturedSanPhams.scrollIntoView()}
                 position={{ bottom: 120, right: 20 }}
                 variant='gradient'

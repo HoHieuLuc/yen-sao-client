@@ -15,18 +15,13 @@ const AppAffix = ({ label, onClick, variant, gradient,
     return (
         <Affix
             position={position}
-            sx={(theme) => ({
-                [theme.fn.smallerThan('sm')]: {
-                    display: 'none'
-                }
-            })}
         >
             <Button
                 onClick={onClick}
                 variant={variant}
                 gradient={gradient}
                 disabled={disabled}
-                sx={{
+                sx={(theme) => ({
                     maxWidth: '1rem',
                     transition: 'all 0.8s ease-in-out',
                     whiteSpace: 'nowrap',
@@ -34,7 +29,10 @@ const AppAffix = ({ label, onClick, variant, gradient,
                     '&:hover': {
                         maxWidth: '30rem',
                     },
-                }}
+                    [theme.fn.smallerThan('sm')]: {
+                        transform: 'scale(0.8) translateX(20%)',
+                    }
+                })}
                 leftIcon={buttonIcon}
                 radius='xl'
             >
