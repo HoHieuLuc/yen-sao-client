@@ -32,7 +32,7 @@ const SanPhamCard = ({ data }: Props) => {
                         height='100%'
                         objectFit='cover'
                         priority
-                        sizes='100%'
+                        sizes='50vw'
                         onClick={() => void router.push(`/san-pham/${data.slug}`)}
                         className={classes.img}
                     />

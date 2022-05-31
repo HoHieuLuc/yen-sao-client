@@ -39,7 +39,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                             cursor: 'pointer',
                         }}
                         objectFit='cover'
-                        sizes='30vw'
+                        sizes='50vw'
                         onClick={() => void router.push(`/san-pham/${data.slug}`)}
                     />
                 </Grid.Col>
