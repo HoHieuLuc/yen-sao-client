@@ -72,7 +72,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
                             width='100%'
                             height='100%'
                             objectFit='scale-down'
-                            sizes='100%'
+                            sizes='10vw'
                             style={{
                                 cursor: 'pointer'
                             }}
