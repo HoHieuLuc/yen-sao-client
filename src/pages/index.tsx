@@ -12,6 +12,7 @@ import { pageHooks, pageService, sanPhamService } from '../graphql/queries';
 import { addApolloState, initializeApollo } from '../graphql/client';
 import { parseNumber, parseString } from '../utils/common';
 import { GetServerSideProps } from 'next';
+import { HeroHeader } from '../components/HeroHeader/HeroHeader';
 
 export default function HomePage() {
     const { data } = pageHooks.useAllPages();
@@ -21,6 +22,15 @@ export default function HomePage() {
 
     return (
         <Stack spacing='xs'>
+            <HeroHeader
+                onFirstButtonClick={data
+                    ? () => window.open(
+                        data.page.websiteInfo?.content.facebook,
+                        '_blank')
+                    : undefined
+                }
+                onSecondButtonClick={scrollToFeaturedSanPhams.scrollIntoView}
+            />
             {data && (
                 <section>
                     <About data={data} />
@@ -34,7 +44,7 @@ export default function HomePage() {
             </div>
             <AppAffix
                 label='Sản phẩm nổi bật'
-                onClick={() => scrollToFeaturedSanPhams.scrollIntoView()}
+                onClick={scrollToFeaturedSanPhams.scrollIntoView}
                 position={{ bottom: 120, right: 20 }}
                 variant='gradient'
                 gradient={{ from: 'violet', to: 'blue', deg: 90 }}
@@ -42,7 +52,7 @@ export default function HomePage() {
             />
             <AppAffix
                 label='Tất cả sản phẩm'
-                onClick={() => scrollToSanPhamList.scrollIntoView()}
+                onClick={scrollToSanPhamList.scrollIntoView}
                 position={{ bottom: 70, right: 20 }}
                 variant='gradient'
                 gradient={{ from: 'violet', to: 'blue', deg: 90 }}
