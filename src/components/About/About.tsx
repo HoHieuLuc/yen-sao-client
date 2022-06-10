@@ -1,7 +1,9 @@
 import useStyles from './About.styles';
 
-import { AllPages } from '../../types';
 import { Spoiler } from '@mantine/core';
+
+import sanitizeHtml from 'sanitize-html';
+import { AllPages } from '../../types';
 
 interface Props {
     data: AllPages;
@@ -28,7 +30,14 @@ const About = ({ data }: Props) => {
             <div
                 className={classes.rte}
                 dangerouslySetInnerHTML={{
-                    __html: data.page.about ? data.page.about.content.value : ''
+                    __html: data.page.about
+                        ? sanitizeHtml(data.page.about.content.value, {
+                            allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]),
+                            allowedClasses: {
+                                '*': ['*']
+                            }
+                        })
+                        : ''
                 }}
             />
         </Spoiler>
