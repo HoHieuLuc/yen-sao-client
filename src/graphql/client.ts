@@ -55,7 +55,7 @@ export function initializeApollo(
         // Merge the existing cache into data passed from getStaticProps/getServerSideProps
         const data = merge(initialState, existingCache, {
             // combine arrays using object equality (like in sets)
-            arrayMerge: (destinationArray, sourceArray) => [
+            arrayMerge: (destinationArray: unknown[], sourceArray: unknown[]) => [
                 ...sourceArray,
                 ...destinationArray.filter((d) =>
                     sourceArray.every((s) => !isEqual(d, s))
