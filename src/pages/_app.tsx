@@ -65,9 +65,10 @@ export default function App(props: Props) {
                 <meta name='title' content='Yến Sào Ms. Tưởng' />
                 <link rel='shortcut icon' href='/favicon.ico' />
                 {/* ====================== */}
-                <meta property="og:description" content="Yến Sào Ms. Tưởng" />
-                <meta property="og:title" content="Yến Sào Ms. Tưởng" />
-                <meta property="og:site_name" content="Yến Sào Ms. Tưởng" />
+                <meta property='og:description' content='Cung cấp tổ yến các loại' />
+                <meta property='og:title' content='Yến Sào Ms. Tưởng' />
+                <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
+                <meta property='og:image' content='/logo.png' />
             </Head>
             <ErrorBoundary>
                 <ApolloProvider client={apolloClient}>
