@@ -4,15 +4,16 @@ import FeaturedSanPham from '../components/SanPham/Featured/FeaturedSanPham';
 import { faList, faWandSparkles } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SanPhamList from '../components/SanPham/List/SanPhamList';
+import { HeroHeader } from '../components/HeroHeader/HeroHeader';
 import AppAffix from '../components/Utils/Affix/AppAffix';
 import About from '../components/About/About';
 import { Stack } from '@mantine/core';
+import Head from 'next/head';
 
 import { pageHooks, pageService, sanPhamService } from '../graphql/queries';
 import { addApolloState, initializeApollo } from '../graphql/client';
 import { parseNumber, parseString } from '../utils/common';
 import { GetServerSideProps } from 'next';
-import { HeroHeader } from '../components/HeroHeader/HeroHeader';
 
 export default function HomePage() {
     const { data } = pageHooks.useAllPages();
@@ -21,44 +22,57 @@ export default function HomePage() {
     const scrollToFeaturedSanPhams = useScrollIntoView<HTMLDivElement>({ offset: 50 });
 
     return (
-        <Stack spacing='xs'>
-            <HeroHeader
-                onFirstButtonClick={data
-                    ? () => window.open(
-                        data.page.websiteInfo?.content.facebook,
-                        '_blank')
-                    : undefined
-                }
-                onSecondButtonClick={scrollToFeaturedSanPhams.scrollIntoView}
-            />
-            {data && (
-                <section>
-                    <About data={data} />
-                </section>
-            )}
-            <div ref={scrollToFeaturedSanPhams.targetRef}>
-                <FeaturedSanPham />
-            </div>
-            <div ref={scrollToSanPhamList.targetRef}>
-                <SanPhamList />
-            </div>
-            <AppAffix
-                label='Sản phẩm nổi bật'
-                onClick={scrollToFeaturedSanPhams.scrollIntoView}
-                position={{ bottom: 120, right: 20 }}
-                variant='gradient'
-                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
-                buttonIcon={<FontAwesomeIcon icon={faWandSparkles} />}
-            />
-            <AppAffix
-                label='Tất cả sản phẩm'
-                onClick={scrollToSanPhamList.scrollIntoView}
-                position={{ bottom: 70, right: 20 }}
-                variant='gradient'
-                gradient={{ from: 'violet', to: 'blue', deg: 90 }}
-                buttonIcon={<FontAwesomeIcon icon={faList} />}
-            />
-        </Stack>
+        <>
+            <Head>
+                <meta name='description' content='Chuyên cung cấp các loại Yến sào ở Nha Trang, Khánh Hòa' />
+                <meta name='keywords' content='Yến Sào, yến Nha Trang, yến Khánh Hòa, yến' />
+                <meta name='title' content='Yến Sào Ms. Tưởng' />
+                <link rel='shortcut icon' href='/favicon.ico' />
+                {/* ====================== */}
+                <meta property='og:description' content='Cung cấp tổ yến các loại' />
+                <meta property='og:title' content='Yến Sào Ms. Tưởng' />
+                <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
+                <meta property='og:image' content='/logo.png' />
+            </Head>
+            <Stack spacing='xs'>
+                <HeroHeader
+                    onFirstButtonClick={data
+                        ? () => window.open(
+                            data.page.websiteInfo?.content.facebook,
+                            '_blank')
+                        : undefined
+                    }
+                    onSecondButtonClick={scrollToFeaturedSanPhams.scrollIntoView}
+                />
+                {data && (
+                    <section>
+                        <About data={data} />
+                    </section>
+                )}
+                <div ref={scrollToFeaturedSanPhams.targetRef}>
+                    <FeaturedSanPham />
+                </div>
+                <div ref={scrollToSanPhamList.targetRef}>
+                    <SanPhamList />
+                </div>
+                <AppAffix
+                    label='Sản phẩm nổi bật'
+                    onClick={scrollToFeaturedSanPhams.scrollIntoView}
+                    position={{ bottom: 120, right: 20 }}
+                    variant='gradient'
+                    gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                    buttonIcon={<FontAwesomeIcon icon={faWandSparkles} />}
+                />
+                <AppAffix
+                    label='Tất cả sản phẩm'
+                    onClick={scrollToSanPhamList.scrollIntoView}
+                    position={{ bottom: 70, right: 20 }}
+                    variant='gradient'
+                    gradient={{ from: 'violet', to: 'blue', deg: 90 }}
+                    buttonIcon={<FontAwesomeIcon icon={faList} />}
+                />
+            </Stack>
+        </>
     );
 }
 
