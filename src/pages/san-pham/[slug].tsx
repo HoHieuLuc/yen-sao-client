@@ -32,14 +32,37 @@ const SanPham = () => {
                 <Head>
                     <title>{`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}</title>
                     <meta
-                        property='og:description'
+                        name='keywords'
+                        content={
+                            `Yến Sào, yến Nha Trang, yến Khánh Hòa, yến, ${data.sanPham.bySlug.tenSanPham}`
+                        }
+                    />
+                    <meta
+                        name='title'
                         content={`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
+                    />
+                    <meta
+                        name='description'
+                        content={data.sanPham.bySlug.moTa}
+                    />
+                    {/* ====================== */}
+                    <meta
+                        property='og:title'
+                        content={`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
+                    />
+                    <meta
+                        property='og:description'
+                        content={data.sanPham.bySlug.moTa}
+                    />
+                    <meta
+                        property='og:image'
+                        content={data.sanPham.bySlug.anhSanPham[0]}
                     />
                 </Head>
             }
             <LoadingWrapper loading={loading}>
                 <Stack spacing='xs'>
-                    {data && data.sanPham.bySlug && 
+                    {data && data.sanPham.bySlug &&
                         <SanPhamDetails
                             data={data.sanPham.bySlug}
                             pageData={pageResult.data}
