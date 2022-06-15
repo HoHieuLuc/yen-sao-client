@@ -1,8 +1,8 @@
 import useStyles from './SanPhamCard.styles';
-import { useRouter } from 'next/router';
 
 import { Badge, Box, Button, Card, Text } from '@mantine/core';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { convertToVND } from '../../../utils/common';
 import { SanPham } from '../../../types';
@@ -12,7 +12,6 @@ interface Props {
 }
 
 const SanPhamCard = ({ data }: Props) => {
-    const router = useRouter();
     const { classes } = useStyles();
 
     return (
@@ -24,18 +23,21 @@ const SanPhamCard = ({ data }: Props) => {
         >
             <Card.Section>
                 <div style={{ position: 'relative' }}>
-                    <Image
-                        alt={data.tenSanPham}
-                        src={data.anhSanPham[0]}
-                        layout='responsive'
-                        width='100%'
-                        height='100%'
-                        objectFit='cover'
-                        priority
-                        sizes='50vw'
-                        onClick={() => void router.push(`/san-pham/${data.slug}`)}
-                        className={classes.img}
-                    />
+                    <Link href={`/san-pham/${data.slug}`}>
+                        <a>
+                            <Image
+                                alt={data.tenSanPham}
+                                src={data.anhSanPham[0]}
+                                layout='responsive'
+                                width='100%'
+                                height='100%'
+                                objectFit='cover'
+                                priority
+                                sizes='50vw'
+                                className={classes.img}
+                            />
+                        </a>
+                    </Link>
                     <Badge
                         color='pink'
                         variant='light'
@@ -49,12 +51,15 @@ const SanPhamCard = ({ data }: Props) => {
             <Text
                 weight={500}
                 lineClamp={1}
-                onClick={() => void router.push(`/san-pham/${data.slug}`)}
                 style={{
                     cursor: 'pointer'
                 }}
             >
-                {data.tenSanPham}
+                <Link href={`/san-pham/${data.slug}`}>
+                    <a>
+                        {data.tenSanPham}
+                    </a>
+                </Link>
             </Text>
             <Text size='sm'>
                 {data.donGiaTuyChon
@@ -78,17 +83,20 @@ const SanPhamCard = ({ data }: Props) => {
                 dangerouslySetInnerHTML={{ __html: data.moTa }}
                 lineClamp={2}
             />
-
-            <Button
-                mt='auto'
-                variant='light'
-                color='blue'
-                fullWidth
-                onClick={() => void router.push(`/san-pham/${data.slug}`)}
-                className='draw'
-            >
-                Chi tiết
-            </Button>
+            <Box mt='auto'>
+                <Link href={`/san-pham/${data.slug}`}>
+                    <a>
+                        <Button
+                            variant='light'
+                            color='blue'
+                            fullWidth
+                            className='draw'
+                        >
+                            Chi tiết
+                        </Button>
+                    </a>
+                </Link>
+            </Box>
         </Card>
     );
 };
