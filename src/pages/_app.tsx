@@ -52,7 +52,7 @@ export default function App(props: Props) {
             router.events.off('routeChangeComplete', end);
             router.events.off('routeChangeError', end);
         };
-    }, []);
+    }, [router.asPath]);
 
     return (
         <>

@@ -1,27 +1,20 @@
 import { useDebouncedSearchParams } from '../../../hooks/use-debounced-search-params';
 import { usePagination } from '../../../hooks';
 
-import { Center, Grid, Pagination, Stack, TextInput } from '@mantine/core';
+import { Center, Pagination, Stack, TextInput } from '@mantine/core';
 import LoadingWrapper from '../../Utils/Wrappers/LoadingWrapper';
-import SanPhamCard from './SanPhamCard';
+import CamNangItem from './CamNangItem';
 
-import { sanPhamHooks } from '../../../graphql/queries';
+import { camNangHooks } from '../../../graphql/queries';
 
-const SanPhamList = () => {
+const CamNangList = () => {
     const { currentPage, handlePageChange } = usePagination();
-    const { debouncedSearch, search, setSearch } = useDebouncedSearchParams();
-    const { data, loading } = sanPhamHooks.useAllSanPhams({
+    const { search, setSearch, debouncedSearch } = useDebouncedSearchParams(300);
+    const { data, loading } = camNangHooks.useAllCamNangs({
         page: currentPage,
-        limit: 12,
+        limit: 10,
         search: debouncedSearch
     });
-
-    const sanPhamElements = data?.sanPham.all.docs.map(sanPham => (
-        <Grid.Col key={sanPham.id} span={6} xs={6} sm={4} md={3} xl={2}>
-            <SanPhamCard data={sanPham} />
-        </Grid.Col>
-    ));
-
     return (
         <Stack spacing='xs'>
             <TextInput
@@ -31,20 +24,23 @@ const SanPhamList = () => {
                 onChange={(e) => setSearch(e.target.value)}
             />
             <LoadingWrapper loading={loading}>
-                <Stack spacing='xs'>
-                    {sanPhamElements?.length === 0 && (
+                {data && <Stack spacing='xs'>
+                    {data.camNang.all.docs.length === 0 && (
                         <Center>
-                            Không tìm thấy sản phẩm nào {debouncedSearch
+                            Không tìm thấy cẩm nang nào {debouncedSearch
                                 && `cho từ khóa "${debouncedSearch}"`}
                         </Center>
                     )}
-                    <Grid>
-                        {sanPhamElements}
-                    </Grid>
+                    {data.camNang.all.docs.map(camNang => (
+                        <CamNangItem
+                            key={camNang.id}
+                            data={camNang}
+                        />
+                    ))}
                     <Center>
-                        {data && <Pagination
+                        <Pagination
                             page={currentPage}
-                            total={data.sanPham.all.pageInfo.totalPages}
+                            total={data.camNang.all.pageInfo.totalPages}
                             onChange={handlePageChange}
                             styles={(theme) => ({
                                 item: {
@@ -60,12 +56,12 @@ const SanPhamList = () => {
                                     pointerEvents: 'none',
                                 }
                             })}
-                        />}
+                        />
                     </Center>
-                </Stack>
+                </Stack>}
             </LoadingWrapper>
         </Stack>
     );
 };
 
-export default SanPhamList;
+export default CamNangList;

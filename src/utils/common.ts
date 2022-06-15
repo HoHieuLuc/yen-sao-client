@@ -16,3 +16,7 @@ export const parseString = (value: unknown) => {
     }
     return value;
 };
+
+export const convertToVietnameseDate = (date: Date | number | string) => {
+    return new Date(date).toLocaleString('vi-VN');
+};

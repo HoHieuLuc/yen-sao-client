@@ -5,12 +5,12 @@ import { faList, faWandSparkles } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SanPhamList from '../components/SanPham/List/SanPhamList';
 import { HeroHeader } from '../components/HeroHeader/HeroHeader';
+import NewCamNang from '../components/CamNang/New/NewCamNang';
 import AppAffix from '../components/Utils/Affix/AppAffix';
-import About from '../components/About/About';
 import { Stack } from '@mantine/core';
 import Head from 'next/head';
 
-import { pageHooks, pageService, sanPhamService } from '../graphql/queries';
+import { camNangService, pageHooks, pageService, sanPhamService } from '../graphql/queries';
 import { addApolloState, initializeApollo } from '../graphql/client';
 import { parseNumber, parseString } from '../utils/common';
 import { GetServerSideProps } from 'next';
@@ -44,11 +44,7 @@ export default function HomePage() {
                     }
                     onSecondButtonClick={scrollToFeaturedSanPhams.scrollIntoView}
                 />
-                {data && (
-                    <section>
-                        <About data={data} />
-                    </section>
-                )}
+                <NewCamNang />
                 <div ref={scrollToFeaturedSanPhams.targetRef}>
                     <FeaturedSanPham />
                 </div>
@@ -81,12 +77,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { query } = context;
 
     await sanPhamService.getAll(client, {
-        search: parseString(query.search),
         page: parseNumber(query.page, 1),
+        search: parseString(query.search),
         limit: 12,
     });
     await sanPhamService.getFeatured(client);
     await pageService.getAll(client);
+    await camNangService.getAll(client, {
+        page: 1,
+        limit: 4,
+        search: ''
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {

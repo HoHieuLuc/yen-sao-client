@@ -6,7 +6,10 @@ export default createStyles(
             '& .ql-align-center': {
                 textAlign: 'center',
                 img: {
-                    margin: 'auto'
+                    margin: 'auto',
+                    [theme.fn.largerThan('sm')]: {
+                        maxWidth: '50%',
+                    }
                 }
             },
             '& .ql-align-right': {
