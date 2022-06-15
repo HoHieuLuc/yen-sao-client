@@ -10,7 +10,10 @@ const FeaturedSanPham = () => {
         <>
             {data && <Box>
                 {data.sanPham.all.docs.map((sanPham, index) => (
-                    <FeaturedSanPhamDetails key={sanPham.id} data={sanPham} index={index} />
+                    <FeaturedSanPhamDetails
+                        key={sanPham.id}
+                        data={sanPham}
+                        index={index} />
                 ))}
             </Box>}
         </>
