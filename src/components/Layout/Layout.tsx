@@ -39,7 +39,11 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                         },
                         {
                             label: 'Giới thiệu',
-                            link: '/',
+                            link: '/gioi-thieu'
+                        },
+                        {
+                            label: 'Cẩm nang',
+                            link: '/cam-nang',
                             onClick: scrollToTop.scrollIntoView
                         },
                         {
