@@ -32,14 +32,17 @@ const SanPhamList = () => {
             />
             <LoadingWrapper loading={loading}>
                 <Stack spacing='xs'>
-                    <Grid columns={12}>
+                    {sanPhamElements?.length === 0 && (
+                        <Center>
+                            Không tìm thấy sản phẩm nào {debouncedSearch
+                                && `cho từ khóa "${debouncedSearch}"`}
+                        </Center>
+                    )}
+                    <Grid>
                         {sanPhamElements}
                     </Grid>
-                    {sanPhamElements?.length === 0 && (
-                        <Center>Không tìm thấy sản phẩm mà bạn cần tìm</Center>
-                    )}
                     <Center>
-                        {!loading && data && <Pagination
+                        {data && <Pagination
                             page={currentPage}
                             total={data.sanPham.all.pageInfo.totalPages}
                             onChange={handlePageChange}
