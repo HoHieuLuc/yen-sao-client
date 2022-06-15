@@ -1,9 +1,9 @@
 import useStyles from './FeaturedSanPhamDetails.styles';
 import { useInView } from 'react-intersection-observer';
-import { useRouter } from 'next/router';
 
 import { Box, Center, Divider, Grid, Text } from '@mantine/core';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { convertToVND } from '../../../utils/common';
 import { SanPham } from '../../../types';
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const FeaturedSanPhamDetails = ({ data, index }: Props) => {
-    const router = useRouter();
     const { ref, inView } = useInView({
         threshold: 0,
     });
@@ -27,21 +26,24 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                     md={6}
                     className={classes.imgCol}
                 >
-                    <Image
-                        alt='Ảnh sản phẩm'
-                        src={data.anhSanPham[0]}
-                        layout='responsive'
-                        width={200}
-                        height={128}
-                        priority
-                        style={{
-                            borderRadius: 10,
-                            cursor: 'pointer',
-                        }}
-                        objectFit='cover'
-                        sizes='50vw'
-                        onClick={() => void router.push(`/san-pham/${data.slug}`)}
-                    />
+                    <Link href={`/san-pham/${data.slug}`}>
+                        <a>
+                            <Image
+                                alt='Ảnh sản phẩm'
+                                src={data.anhSanPham[0]}
+                                layout='responsive'
+                                width={200}
+                                height={128}
+                                priority
+                                style={{
+                                    borderRadius: 10,
+                                    cursor: 'pointer',
+                                }}
+                                objectFit='cover'
+                                sizes='50vw'
+                            />
+                        </a>
+                    </Link>
                 </Grid.Col>
                 <Grid.Col md={6} className={classes.textCol}>
                     <Center style={{ width: '100%', height: '100%' }}>
@@ -52,9 +54,12 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                                     weight={700}
                                     variant='gradient'
                                     gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
-                                    onClick={() => void router.push(`/san-pham/${data.slug}`)}
                                 >
-                                    {data.tenSanPham}
+                                    <Link href={`/san-pham/${data.slug}`}>
+                                        <a>
+                                            {data.tenSanPham}
+                                        </a>
+                                    </Link>
                                 </Text>
                             </Center>
                             <Text
@@ -72,8 +77,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                                         {data.donGiaTuyChon}
                                     </Text>
                                 </Center>
-                                :
-                                <>
+                                : <>
                                     <Center>
                                         <Text>
                                             <span
