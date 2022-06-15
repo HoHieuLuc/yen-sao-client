@@ -1,4 +1,4 @@
-import useStyles from '../../About/About.styles';
+import useStyles from '../../../styles/typography.styles';
 
 import { Center, Grid, Text, Box, Paper, Stack, Title, Spoiler } from '@mantine/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
