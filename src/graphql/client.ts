@@ -26,6 +26,9 @@ function createApolloClient() {
                     fields: {
                         sanPham: {
                             merge: true
+                        },
+                        camNang: {
+                            merge: true
                         }
                     },
                 },
