@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
+import AppBreadcrumbs from '../../components/Utils/Breadcrumbs/AppBreadcrumbs';
 import SanPhamDetails from '../../components/SanPham/Details/SanPhamDetails';
-import LoadingWrapper from '../../components/Utils/Wrappers/LoadingWrapper';
 import GenericError from '../../components/Utils/Errors/GenericError';
 import SanPhamList from '../../components/SanPham/List/SanPhamList';
 import { Divider, Stack } from '@mantine/core';
@@ -15,7 +15,7 @@ import { GetServerSideProps } from 'next';
 const SanPham = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const { data, loading } = sanPhamHooks.useSanPhamBySlug(parseString(slug));
+    const { data } = sanPhamHooks.useSanPhamBySlug(parseString(slug));
     const pageResult = pageHooks.useAllPages();
 
     if (data && !data.sanPham.bySlug) {
@@ -30,7 +30,7 @@ const SanPham = () => {
         <>
             {data && data.sanPham.bySlug &&
                 <Head>
-                    <title>{`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}</title>
+                    <title>{`${data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}</title>
                     <meta
                         name='keywords'
                         content={
@@ -39,7 +39,7 @@ const SanPham = () => {
                     />
                     <meta
                         name='title'
-                        content={`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
+                        content={`${data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
                     />
                     <meta
                         name='description'
@@ -48,7 +48,7 @@ const SanPham = () => {
                     {/* ====================== */}
                     <meta
                         property='og:title'
-                        content={`${data && data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
+                        content={`${data.sanPham.bySlug.tenSanPham} - Yến Sào Ms. Tưởng`}
                     />
                     <meta
                         property='og:description'
@@ -60,18 +60,31 @@ const SanPham = () => {
                     />
                 </Head>
             }
-            <LoadingWrapper loading={loading}>
-                <Stack spacing='xs'>
-                    {data && data.sanPham.bySlug &&
+            <Stack spacing='xs'>
+                {data && data.sanPham.bySlug &&
+                    <>
+                        <AppBreadcrumbs 
+                            data={[
+                                {
+                                    title: 'Trang chủ',
+                                    href: '/'
+                                },
+                                {
+                                    title: data.sanPham.bySlug.tenSanPham,
+                                    href: `/san-pham/${data.sanPham.bySlug.slug}`,
+                                    disabled: true
+                                }
+                            ]}
+                        />
                         <SanPhamDetails
                             data={data.sanPham.bySlug}
                             pageData={pageResult.data}
                         />
-                    }
-                    <Divider label='Danh mục sản phẩm' labelPosition='center' />
-                    <SanPhamList />
-                </Stack>
-            </LoadingWrapper>
+                    </>
+                }
+                <Divider label='Danh mục sản phẩm' labelPosition='center' />
+                <SanPhamList />
+            </Stack>
         </>
     );
 };
