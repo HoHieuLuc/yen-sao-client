@@ -20,7 +20,7 @@ const AboutPage = () => {
                 <meta property='og:description' content='Giới thiệu - Yến Sào Ms. Tưởng' />
                 <meta property='og:title' content='Giới thiệu - Yến Sào Ms. Tưởng' />
                 <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
-                <meta property='og:image' content='/logo.png' />
+                <meta property='og:image' content='/logo.jpg' />
             </Head>
             <AppBreadcrumbs
                 data={[
