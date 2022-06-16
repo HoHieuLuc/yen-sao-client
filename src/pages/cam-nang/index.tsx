@@ -2,12 +2,12 @@ import AppBreadcrumbs from '../../components/Utils/Breadcrumbs/AppBreadcrumbs';
 import SanPhamAside from '../../components/SanPham/Aside/SanPhamAside';
 import CamNangList from '../../components/CamNang/List/CamNangList';
 import { Grid } from '@mantine/core';
+import Head from 'next/head';
 
 import { camNangService, pageService, sanPhamService } from '../../graphql/queries';
 import { initializeApollo, addApolloState } from '../../graphql/client';
 import { parseNumber, parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 
 const CamNang = () => {
     return (

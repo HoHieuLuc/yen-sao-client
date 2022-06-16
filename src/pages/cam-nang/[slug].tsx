@@ -6,12 +6,12 @@ import SanPhamAside from '../../components/SanPham/Aside/SanPhamAside';
 import GenericError from '../../components/Utils/Errors/GenericError';
 import CamNangList from '../../components/CamNang/List/CamNangList';
 import { Divider, Grid, Stack, Text } from '@mantine/core';
+import Head from 'next/head';
 
 import { camNangHooks, camNangService, pageService } from '../../graphql/queries';
 import { initializeApollo, addApolloState } from '../../graphql/client';
 import { parseString } from '../../utils/common';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 
 const CamNang = () => {
     const router = useRouter();
@@ -85,7 +85,7 @@ const CamNang = () => {
                 <Grid>
                     <Grid.Col span={12} md={9}>
                         <Text color='blue' weight={700} size='xl'>
-                            Danh sách cẩm nang
+                            Danh mục cẩm nang
                         </Text>
                         <CamNangList />
                     </Grid.Col>
