@@ -14,8 +14,16 @@ const CamNang = () => {
         <>
             <Head>
                 <title>Cẩm nang - Yến Sào Ms. Tưởng</title>
+                <meta name='keywords' content='Yến Sào, yến Nha Trang, yến Khánh Hòa, yến, cẩm nang' />
+                <meta name='title' content='Cẩm nang - Yến Sào Ms. Tưởng' />
+                <link rel='shortcut icon' href='/favicon.ico' />
+                {/* ====================== */}
+                <meta property='og:description' content='Cẩm nang - Yến Sào Ms. Tưởng' />
+                <meta property='og:title' content='Cẩm nang - Yến Sào Ms. Tưởng' />
+                <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
+                <meta property='og:image' content='/logo.png' />
             </Head>
-            <AppBreadcrumbs 
+            <AppBreadcrumbs
                 data={[
                     {
                         title: 'Trang chủ',
