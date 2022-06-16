@@ -32,7 +32,7 @@ export default function HomePage() {
                 <meta property='og:description' content='Cung cấp tổ yến các loại' />
                 <meta property='og:title' content='Yến Sào Ms. Tưởng' />
                 <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
-                <meta property='og:image' content='/logo.png' />
+                <meta property='og:image' content='/logo.jpg' />
             </Head>
             <Stack spacing='xs'>
                 <HeroHeader

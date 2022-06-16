@@ -21,7 +21,7 @@ const CamNang = () => {
                 <meta property='og:description' content='Cẩm nang - Yến Sào Ms. Tưởng' />
                 <meta property='og:title' content='Cẩm nang - Yến Sào Ms. Tưởng' />
                 <meta property='og:site_name' content='Yến Sào Ms. Tưởng' />
-                <meta property='og:image' content='/logo.png' />
+                <meta property='og:image' content='/logo.jpg' />
             </Head>
             <AppBreadcrumbs
                 data={[
