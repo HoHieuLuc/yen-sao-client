@@ -58,6 +58,9 @@ const CamNangItem = ({ data }: Props) => {
                             __html: data.noiDung
                         }}
                         className={typographyStyles.classes.rte}
+                        sx={{
+                            maxHeight: '3em'
+                        }}
                     />
                 </Grid.Col>
             </Grid>
