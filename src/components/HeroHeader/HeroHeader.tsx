@@ -7,7 +7,7 @@ import { Dots } from './Dots';
 import useStyles from './HeroHeader.styles';
 
 interface Props {
-    onFirstButtonClick?: () => void;
+    onFirstButtonClick: () => void;
     onSecondButtonClick: () => void;
 }
 
