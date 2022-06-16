@@ -37,6 +37,8 @@ export default function HomePage() {
             <Stack spacing='xs'>
                 <HeroHeader
                     onFirstButtonClick={data
+                        && data.page.websiteInfo
+                        && data.page.websiteInfo.content.facebook
                         ? () => window.open(
                             data.page.websiteInfo?.content.facebook,
                             '_blank')

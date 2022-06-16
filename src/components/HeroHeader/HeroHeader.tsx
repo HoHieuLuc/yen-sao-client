@@ -7,7 +7,7 @@ import { Dots } from './Dots';
 import useStyles from './HeroHeader.styles';
 
 interface Props {
-    onFirstButtonClick: () => void;
+    onFirstButtonClick?: () => void;
     onSecondButtonClick: () => void;
 }
 
@@ -38,7 +38,7 @@ export function HeroHeader({ onSecondButtonClick, onFirstButtonClick }: Props) {
                 </Container>
 
                 <div className={classes.controls}>
-                    <Button
+                    {onFirstButtonClick && <Button
                         className={classes.control}
                         size='lg'
                         variant='default'
@@ -47,7 +47,7 @@ export function HeroHeader({ onSecondButtonClick, onFirstButtonClick }: Props) {
                         leftIcon={<FontAwesomeIcon icon={faFacebookF} />}
                     >
                         Facebook
-                    </Button>
+                    </Button>}
                     <Button
                         className={classes.control}
                         size='lg'
