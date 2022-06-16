@@ -1,13 +1,4 @@
-import { createStyles, keyframes } from '@mantine/core';
-
-const slideIn = keyframes({
-    '0%': {
-        transform: 'scale(0)',
-    },
-    '100%': {
-        transform: 'scale(1)',
-    }
-});
+import { createStyles } from '@mantine/core';
 
 export default createStyles((theme) => ({
     wrapper: {
@@ -24,7 +15,6 @@ export default createStyles((theme) => ({
     inner: {
         position: 'relative',
         zIndex: 1,
-        animation: `${slideIn} 0.7s ease-out`,
     },
 
     dots: {
