@@ -1,6 +1,8 @@
 import useStyles from '../../../styles/typography.styles';
 
-import { Center, Grid, Text, Box, Paper, Stack, Title, Spoiler } from '@mantine/core';
+import { Center, Grid, Text, Box, Paper, Stack, Spoiler, Badge, Divider } from '@mantine/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 
@@ -69,7 +71,13 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                     </Swiper>
                 </Grid.Col>
                 <Grid.Col md={5} p='xl'>
-                    <Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            height: '100%'
+                        }}
+                    >
                         <Text
                             style={{
                                 fontSize: '5vh',
@@ -78,6 +86,7 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                         >
                             {data.tenSanPham}
                         </Text>
+                        <Divider />
                         {data.donGiaTuyChon
                             ? <Text
                                 style={{
@@ -116,16 +125,23 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                         {data.xuatXu && <Text>
                             Xuất xứ: {data.xuatXu}
                         </Text>}
-                        {phones && phones.length > 0 &&
-                            <Text
-                                weight={700}
-                                size='xl'
-                                variant='gradient'
-                                gradient={{ from: 'brown', to: 'red', deg: 45 }}
-                            >
-                                Liên hệ: {phones.join(', ')}
-                            </Text>
-                        }
+                        <Box
+                            sx={{
+                                marginTop: 'auto'
+                            }}
+                        >
+                            <Divider pb='xs' />
+                            {phones && phones.map((phone, index) => (
+                                <Badge
+                                    key={`${phone}:${index}`}
+                                    leftSection={<FontAwesomeIcon icon={faPhone} />}
+                                    size='xl'
+                                    fullWidth
+                                >
+                                    {phone}
+                                </Badge>
+                            ))}
+                        </Box>
                     </Box>
                 </Grid.Col>
             </Grid >
@@ -136,7 +152,14 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                 p='xs'
             >
                 <Center mb='xs'>
-                    <Title>Mô tả sản phẩm</Title>
+                    <Text
+                        style={{
+                            fontSize: '5vh',
+                        }}
+                        weight={700}
+                    >
+                        Mô tả sản phẩm
+                    </Text>
                 </Center>
                 <Spoiler
                     showLabel='Xem thêm'
