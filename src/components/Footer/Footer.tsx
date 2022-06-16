@@ -54,7 +54,7 @@ const AppFooter = ({ data }: Props) => {
             </Container>
             <Container className={classes.afterFooter}>
                 <Text color="dimmed" size="sm">
-                    © {new Date().getFullYear()}. All rights reserved.
+                    © {new Date().getFullYear()} Yến Sào Ms. Tưởng. All rights reserved.
                 </Text>
             </Container>
         </Box>
