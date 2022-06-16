@@ -31,7 +31,7 @@ export function HeroHeader({ onSecondButtonClick, onFirstButtonClick }: Props) {
                     các loại
                 </Title>
 
-                <Container p={0} size={600}>
+                <Container p={0} size={700}>
                     <Text size='lg' color='dimmed' className={classes.description}>
                         Cơ sở yến sào Ms. Tưởng chuyên cung cấp các loại Yến Sào tại Nha Trang
                     </Text>
