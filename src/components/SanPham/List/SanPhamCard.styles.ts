@@ -8,7 +8,6 @@ export default createStyles((theme) => ({
         borderRadius: theme.radius.md,
     },
     img: {
-        cursor: 'pointer',
         transition: 'all 0.3s ease-in-out',
         '&:hover': {
             transform: 'scale(1.2)',

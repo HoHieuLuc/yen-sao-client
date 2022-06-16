@@ -31,14 +31,14 @@ export function HeroHeader({ onSecondButtonClick, onFirstButtonClick }: Props) {
                     các loại
                 </Title>
 
-                <Container p={0} size={600}>
+                <Container p={0} size={700}>
                     <Text size='lg' color='dimmed' className={classes.description}>
                         Cơ sở yến sào Ms. Tưởng chuyên cung cấp các loại Yến Sào tại Nha Trang
                     </Text>
                 </Container>
 
                 <div className={classes.controls}>
-                    <Button
+                    {onFirstButtonClick && <Button
                         className={classes.control}
                         size='lg'
                         variant='default'
@@ -47,7 +47,7 @@ export function HeroHeader({ onSecondButtonClick, onFirstButtonClick }: Props) {
                         leftIcon={<FontAwesomeIcon icon={faFacebookF} />}
                     >
                         Facebook
-                    </Button>
+                    </Button>}
                     <Button
                         className={classes.control}
                         size='lg'

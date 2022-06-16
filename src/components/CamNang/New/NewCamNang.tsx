@@ -17,10 +17,9 @@ const NewCamNang = () => {
                 weight={700}
                 variant='gradient'
                 gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
-                transform='uppercase'
                 align='center'
             >
-                Cẩm nang mới
+                CẨM NANG MỚI
             </Text>
             {data &&
                 <Grid gutter='xs'>
@@ -40,12 +39,11 @@ const NewCamNang = () => {
                 align='right'
                 sx={{
                     fontStyle: 'italic',
-                    cursor: 'pointer'
                 }}
             >
                 <Link href='/cam-nang'>
                     <a>
-                        Xem tất cả
+                        Xem tất cả {'>>'}
                     </a>
                 </Link>
             </Text>

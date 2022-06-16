@@ -71,6 +71,7 @@ export default function App(props: Props) {
                             theme={{
                                 colorScheme,
                                 spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
+                                fontFamily: 'Montserrat',
                             }}
                             withGlobalStyles
                             withNormalizeCSS

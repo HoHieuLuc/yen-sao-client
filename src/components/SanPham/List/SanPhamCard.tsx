@@ -49,11 +49,9 @@ const SanPhamCard = ({ data }: Props) => {
             </Card.Section>
 
             <Text
-                weight={500}
+                weight={700}
                 lineClamp={1}
-                style={{
-                    cursor: 'pointer'
-                }}
+                size='lg'
             >
                 <Link href={`/san-pham/${data.slug}`}>
                     <a>
@@ -63,14 +61,14 @@ const SanPhamCard = ({ data }: Props) => {
             </Text>
             <Text size='sm'>
                 {data.donGiaTuyChon
-                    ? <Text size='sm'>
+                    ? <Text size='sm' weight={500}>
                         {data.donGiaTuyChon}
                     </Text>
                     : <Box>
-                        <Text size='sm'>
+                        <Text size='sm' weight={500}>
                             Lẻ: {convertToVND(data.donGiaLe)}/100gram
                         </Text>
-                        <Text size='sm'>
+                        <Text size='sm' weight={500}>
                             Sỉ: {convertToVND(data.donGiaSi)}/100gram
                         </Text>
                     </Box>

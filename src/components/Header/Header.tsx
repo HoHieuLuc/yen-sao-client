@@ -9,17 +9,17 @@ import {
 import Image from 'next/image';
 
 
-interface HeaderSimpleProps {
-    links: {
+interface Props {
+    links: Array<{
         link?: string;
         label: string;
         onClick?: () => void;
-    }[];
+    }>;
     loading: boolean;
     debouncedLoading: boolean;
 }
 
-const AppHeader = ({ links, loading, debouncedLoading }: HeaderSimpleProps) => {
+const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
     const [opened, toggleOpened] = useBooleanToggle(false);
     const { classes } = useStyles();
     const router = useRouter();

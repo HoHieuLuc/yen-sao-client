@@ -6,7 +6,7 @@ import AppContainer from '../Utils/Wrappers/AppContainer';
 import AppAffix from '../Utils/Affix/AppAffix';
 import AppHeader from '../Header/Header';
 import AppFooter from '../Footer/Footer';
-import { Stack } from '@mantine/core';
+import { Box } from '@mantine/core';
 
 import { pageHooks } from '../../graphql/queries';
 
@@ -22,11 +22,10 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
     const scrollToFooter = useScrollIntoView();
     return (
         <>
-            <Stack
-                style={{
+            <Box
+                sx={{
                     minHeight: '100vh',
                 }}
-                spacing='xs'
             >
                 <AppHeader
                     loading={loading}
@@ -39,7 +38,8 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                         },
                         {
                             label: 'Giới thiệu',
-                            link: '/gioi-thieu'
+                            link: '/gioi-thieu',
+                            onClick: scrollToTop.scrollIntoView
                         },
                         {
                             label: 'Cẩm nang',
@@ -60,7 +60,7 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                         <AppFooter data={data} />
                     </footer>
                 )}
-            </Stack>
+            </Box>
             {data && data.page.websiteInfo && data.page.websiteInfo.content.facebook &&
                 <AppAffix
                     label='Facebook'
