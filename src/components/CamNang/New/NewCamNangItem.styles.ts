@@ -11,7 +11,6 @@ export default createStyles((theme) => ({
         [theme.fn.smallerThan('md')]: {
             borderRadius: `${theme.radius.xs}px 0 0 ${theme.radius.xs}px`
         },
-        cursor: 'pointer',
         transition: 'all 0.3s ease-in-out',
         '&:hover': {
             transform: 'scale(1.2)',

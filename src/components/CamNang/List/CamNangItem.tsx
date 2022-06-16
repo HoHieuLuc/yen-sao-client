@@ -42,9 +42,6 @@ const CamNangItem = ({ data }: Props) => {
                             <Text
                                 weight={700}
                                 lineClamp={1}
-                                sx={{
-                                    cursor: 'pointer'
-                                }}
                                 size='xl'
                                 color='blue'
                             >

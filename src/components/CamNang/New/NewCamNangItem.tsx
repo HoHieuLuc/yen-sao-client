@@ -38,9 +38,6 @@ const NewCamNangItem = ({ data }: Props) => {
                         <Text
                             weight={700}
                             lineClamp={1}
-                            sx={{
-                                cursor: 'pointer'
-                            }}
                         >
                             <Link href={`/cam-nang/${data.slug}`}>
                                 <a>
