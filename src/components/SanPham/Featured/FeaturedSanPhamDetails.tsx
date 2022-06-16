@@ -36,8 +36,7 @@ const FeaturedSanPhamDetails = ({ data, index }: Props) => {
                                 height={128}
                                 priority
                                 style={{
-                                    borderRadius: 10,
-                                    cursor: 'pointer',
+                                    borderRadius: 10
                                 }}
                                 objectFit='cover'
                                 sizes='50vw'

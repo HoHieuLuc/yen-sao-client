@@ -46,7 +46,6 @@ export default createStyles((theme, { index, inView }: StyleParams) => ({
     },
     title: {
         fontSize: '5vh',
-        cursor: 'pointer',
     },
     description: {
         fontSize: '3vh'
