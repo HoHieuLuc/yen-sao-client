@@ -33,17 +33,17 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                     links={[
                         {
                             label: 'Trang chủ',
-                            link: '/',
+                            href: '/',
                             onClick: scrollToTop.scrollIntoView
                         },
                         {
                             label: 'Giới thiệu',
-                            link: '/gioi-thieu',
+                            href: '/gioi-thieu',
                             onClick: scrollToTop.scrollIntoView
                         },
                         {
                             label: 'Cẩm nang',
-                            link: '/cam-nang',
+                            href: '/cam-nang',
                             onClick: scrollToTop.scrollIntoView
                         },
                         {

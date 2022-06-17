@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 interface Props {
     links: Array<{
-        link?: string;
+        href?: string;
         label: string;
         onClick?: () => void;
     }>;
@@ -26,8 +26,8 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
     const router = useRouter();
 
     const items = links.map((link) => (
-        link.link && link.link !== router.pathname
-            ? <Link href={link.link} key={link.label}>
+        link.href && link.href !== router.pathname
+            ? <Link href={link.href} key={link.label}>
                 <a>
                     <Button
                         variant='subtle'
