@@ -7,6 +7,7 @@ import {
     Stack, Button, Progress, Drawer
 } from '@mantine/core';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 interface Props {
@@ -25,30 +26,32 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
     const router = useRouter();
 
     const items = links.map((link) => (
-        <Button
-            variant='subtle'
-            key={link.label}
-            styles={(theme) => ({
-                root: {
-                    [theme.fn.smallerThan('xs')]: {
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'flex-start'
-                    },
-                },
-            })}
-            onClick={() => {
-                if (link.link && link.link !== router.pathname) {
-                    void router.push(link.link).then(() => {
-                        link.onClick && link.onClick();
-                    });
-                    return;
-                }
-                link.onClick && link.onClick();
-            }}
-        >
-            {link.label}
-        </Button>
+        link.link && link.link !== router.pathname
+            ? <Link href={link.link} key={link.label}>
+                <a>
+                    <Button
+                        variant='subtle'
+                        key={link.label}
+                        classNames={{
+                            root: classes.linkItem
+                        }}
+                    >
+                        {link.label}
+                    </Button>
+                </a>
+            </Link>
+            : <Button
+                variant='subtle'
+                key={link.label}
+                classNames={{
+                    root: classes.linkItem
+                }}
+                onClick={() => {
+                    link.onClick && link.onClick();
+                }}
+            >
+                {link.label}
+            </Button>
     ));
 
     return (
@@ -65,20 +68,21 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
                 }
                 <Container className={classes.header}>
                     <div style={{ width: '3rem', height: '3rem' }}>
-                        <Image
-                            alt='logo'
-                            src='/logo.png'
-                            layout='responsive'
-                            width='100%'
-                            height='100%'
-                            objectFit='scale-down'
-                            sizes='10vw'
-                            style={{
-                                cursor: 'pointer'
-                            }}
-                            onClick={() => void router.push('/')}
-                            priority
-                        />
+                        <Link href='/'>
+                            <a>
+
+                                <Image
+                                    alt='logo'
+                                    src='/logo.png'
+                                    layout='responsive'
+                                    width='100%'
+                                    height='100%'
+                                    objectFit='scale-down'
+                                    sizes='10vw'
+                                    priority
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Group spacing={5} className={classes.links}>
                         {items}
