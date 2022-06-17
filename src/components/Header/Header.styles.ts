@@ -14,28 +14,17 @@ export default createStyles((theme) => ({
         },
     },
 
-    burger: {
-        [theme.fn.largerThan('xs')]: {
-            display: 'none',
+    linkItem: {
+        [theme.fn.smallerThan('xs')]: {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start'
         },
     },
 
-    link: {
-        lineHeight: 1,
-        textDecoration: 'none',
-
-        '&:visited': {
-            color: theme.primaryColor,
-        }
-    },
-
-    linkActive: {
-        '&, &:hover': {
-            backgroundColor:
-                theme.colorScheme === 'dark'
-                    ? theme.fn.rgba(theme.colors[theme.primaryColor][9], 0.25)
-                    : theme.colors[theme.primaryColor][0],
-            color: theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 3 : 7],
+    burger: {
+        [theme.fn.largerThan('xs')]: {
+            display: 'none',
         },
     },
 }));

@@ -29,7 +29,7 @@ const CamNang = () => {
     return (
         <>
             {data && data.camNang.bySlug && <Head>
-                <title>{`${data && data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}</title>
+                <title>{`${data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}</title>
                 <meta
                     name='keywords'
                     content={
@@ -38,7 +38,7 @@ const CamNang = () => {
                 />
                 <meta
                     name='title'
-                    content={`${data && data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}
+                    content={`${data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}
                 />
                 <meta
                     name='description'
@@ -47,7 +47,7 @@ const CamNang = () => {
                 {/* ====================== */}
                 <meta
                     property='og:title'
-                    content={`${data && data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}
+                    content={`${data.camNang.bySlug.tieuDe} - Yến Sào Ms. Tưởng`}
                 />
                 <meta
                     property='og:description'
@@ -59,7 +59,7 @@ const CamNang = () => {
                 />
             </Head>}
             <Stack spacing='xs'>
-                {data && (
+                {data && data.camNang.bySlug && (
                     <>
                         <AppBreadcrumbs
                             data={[
