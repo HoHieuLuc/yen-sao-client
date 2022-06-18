@@ -21,8 +21,8 @@ a, a:visited {
 .draw:hover::before {
     top: 0;
     left: 0;
-    border-top-color: #60daaa;
-    border-right-color: #60daaa;
+    border-top-color: #6091da;
+    border-right-color: #6091da;
     animation: border 2s infinite;
 }
 
@@ -56,13 +56,13 @@ a, a:visited {
 
 @keyframes borderColor {
     0% {
-        border-bottom-color: #60daaa;
-        border-left-color: #60daaa;
+        border-bottom-color: #6091da;
+        border-left-color: #6091da;
     }
 
     50% {
-        border-bottom-color: #60daaa;
-        border-left-color: #60daaa;
+        border-bottom-color: #6091da;
+        border-left-color: #6091da;
     }
 
     51% {
