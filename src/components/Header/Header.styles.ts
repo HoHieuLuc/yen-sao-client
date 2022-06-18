@@ -27,4 +27,10 @@ export default createStyles((theme) => ({
             display: 'none',
         },
     },
+
+    aTag: {
+        [theme.fn.smallerThan('xs')]: {
+            width: '100%'
+        },
+    }
 }));
