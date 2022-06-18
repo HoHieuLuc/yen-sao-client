@@ -25,7 +25,6 @@ export default createStyles((theme) => ({
         },
         [theme.fn.smallerThan('xs')]: {
             fontSize: '0.8em'
-        },
-        marginBottom: 'auto'
+        }
     }
 }));
