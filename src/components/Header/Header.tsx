@@ -28,7 +28,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
     const items = links.map((link) => (
         link.href && link.href !== router.pathname
             ? <Link href={link.href} key={link.label}>
-                <a>
+                <a className={classes.aTag}>
                     <Button
                         variant='subtle'
                         key={link.label}

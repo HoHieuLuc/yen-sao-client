@@ -19,4 +19,12 @@ export default createStyles((theme) => ({
         top: 5,
         right: 5,
     },
+    price: {
+        [theme.fn.smallerThan('lg')]: {
+            fontSize: theme.fontSizes.sm,
+        },
+        [theme.fn.smallerThan('xs')]: {
+            fontSize: '0.8em'
+        }
+    }
 }));

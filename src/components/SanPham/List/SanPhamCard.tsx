@@ -61,14 +61,14 @@ const SanPhamCard = ({ data }: Props) => {
             </Text>
             <Text size='sm'>
                 {data.donGiaTuyChon
-                    ? <Text size='sm' weight={500}>
+                    ? <Text className={classes.price} weight={500}>
                         {data.donGiaTuyChon}
                     </Text>
                     : <Box>
-                        <Text size='sm' weight={500}>
+                        <Text className={classes.price} weight={500}>
                             Lẻ: {convertToVND(data.donGiaLe)}/100gram
                         </Text>
-                        <Text size='sm' weight={500}>
+                        <Text className={classes.price} weight={500}>
                             Sỉ: {convertToVND(data.donGiaSi)}/100gram
                         </Text>
                     </Box>
