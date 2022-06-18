@@ -77,7 +77,7 @@ const SanPhamCard = ({ data }: Props) => {
 
             <Text
                 size='sm'
-                style={{ lineHeight: 1.5 }}
+                sx={{ lineHeight: 1.5, maxHeight: '5em' }}
                 dangerouslySetInnerHTML={{ __html: data.moTa }}
                 lineClamp={2}
             />

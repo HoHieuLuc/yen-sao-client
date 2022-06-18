@@ -48,7 +48,8 @@ export default createStyles((theme, { index, inView }: StyleParams) => ({
         fontSize: '5vh',
     },
     description: {
-        fontSize: '3vh'
+        fontSize: '3vh',
+        maxHeight: '5em'
     },
     retailPrice: {
         fontSize: '4vh',
