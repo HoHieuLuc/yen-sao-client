@@ -3,10 +3,10 @@ import { useScrollIntoView } from '@mantine/hooks';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AppContainer from '../Utils/Wrappers/AppContainer';
+import { Box, Container } from '@mantine/core';
 import AppAffix from '../Utils/Affix/AppAffix';
 import AppHeader from '../Header/Header';
 import AppFooter from '../Footer/Footer';
-import { Box, Container } from '@mantine/core';
 
 import { pageHooks } from '../../graphql/queries';
 
