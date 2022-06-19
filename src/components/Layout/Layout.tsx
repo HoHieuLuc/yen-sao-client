@@ -6,7 +6,7 @@ import AppContainer from '../Utils/Wrappers/AppContainer';
 import AppAffix from '../Utils/Affix/AppAffix';
 import AppHeader from '../Header/Header';
 import AppFooter from '../Footer/Footer';
-import { Box } from '@mantine/core';
+import { Box, Container } from '@mantine/core';
 
 import { pageHooks } from '../../graphql/queries';
 
@@ -25,6 +25,7 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
             <Box
                 sx={{
                     minHeight: '100vh',
+                    //backgroundColor: 'blue',
                 }}
             >
                 <AppHeader
@@ -52,9 +53,11 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                         }
                     ]}
                 />
-                <AppContainer>
-                    {children}
-                </AppContainer>
+                <Container size={'xl'} p={0}>
+                    <AppContainer>
+                        {children}
+                    </AppContainer>
+                </Container>
                 {data && (
                     <footer style={{ marginTop: 'auto' }} ref={scrollToFooter.targetRef}>
                         <AppFooter data={data} />
