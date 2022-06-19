@@ -76,10 +76,10 @@ const SanPhamCard = ({ data }: Props) => {
             </Text>
 
             <Text
-                size='sm'
                 sx={{ lineHeight: 1.5, maxHeight: '5em' }}
                 dangerouslySetInnerHTML={{ __html: data.moTa }}
                 lineClamp={2}
+                size='xs'
             />
             <Box mt='auto'>
                 <Link href={`/san-pham/${data.slug}`}>

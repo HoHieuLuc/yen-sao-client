@@ -79,9 +79,9 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                         }}
                     >
                         <Text
-                            style={{
-                                fontSize: '5vh',
-                            }}
+                            sx={(theme) => ({
+                                fontSize: theme.fontSizes.xl * 1.7,
+                            })}
                             weight={700}
                         >
                             {data.tenSanPham}
@@ -89,35 +89,37 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                         <Divider />
                         {data.donGiaTuyChon
                             ? <Text
-                                style={{
-                                    fontSize: '4vh',
-                                }}
+                                sx={(theme) => ({
+                                    fontSize: theme.fontSizes.xl * 1.5,
+                                })}
                             >
                                 {data.donGiaTuyChon}
                             </Text>
                             : <>
                                 <Text>
-                                    <span
-                                        style={{
-                                            fontSize: '4vh',
+                                    <Text
+                                        sx={(theme) => ({
+                                            fontSize: theme.fontSizes.xl * 1.5,
                                             color: '#9e1c1c',
-                                            fontWeight: 'bold'
-                                        }}
+                                        })}
+                                        weight={600}
+                                        component='span'
                                     >
                                         {convertToVND(data.donGiaLe)}
-                                    </span>
+                                    </Text>
                                     /100gram (lẻ)
                                 </Text>
                                 <Text>
-                                    <span
-                                        style={{
-                                            fontSize: '4vh',
+                                    <Text
+                                        sx={(theme) => ({
+                                            fontSize: theme.fontSizes.xl * 1.5,
                                             color: '#9e1c1c',
-                                            fontWeight: 'bold'
-                                        }}
+                                        })}
+                                        weight={600}
+                                        component='span'
                                     >
                                         {convertToVND(data.donGiaSi)}
-                                    </span>
+                                    </Text>
                                     /100gram (sỉ)
                                 </Text>
                             </>
@@ -153,9 +155,9 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
             >
                 <Center mb='xs'>
                     <Text
-                        style={{
-                            fontSize: '5vh',
-                        }}
+                        sx={(theme) => ({
+                            fontSize: theme.fontSizes.xl * 1.5
+                        })}
                         weight={700}
                     >
                         Mô tả sản phẩm

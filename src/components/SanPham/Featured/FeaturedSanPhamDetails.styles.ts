@@ -45,21 +45,21 @@ export default createStyles((theme, { index, inView }: StyleParams) => ({
         animation: inView ? `${fadeIn} 0.7s ease-in-out` : `${fadeOut} 0.7s ease-in-out`,
     },
     title: {
-        fontSize: '5vh',
+        fontSize: theme.fontSizes.xl * 1.7
     },
     description: {
-        fontSize: '3vh',
+        fontSize: theme.fontSizes.xl,
         maxHeight: '5em'
     },
     retailPrice: {
-        fontSize: '4vh',
+        fontSize: theme.fontSizes.xl * 1.5,
         background: `linear-gradient(to right, purple 50%, blue 100%)`,
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         textAlign: 'center'
     },
     wholesalePrice: {
-        fontSize: '4vh',
+        fontSize: theme.fontSizes.xl * 1.5,
         background: `linear-gradient(to right, red 0%, #330867 100%)`,
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',

@@ -25,6 +25,9 @@ export default createStyles((theme) => ({
         },
         [theme.fn.smallerThan('xs')]: {
             fontSize: '0.8em'
+        },
+        [theme.fn.largerThan('xl')]: {
+            fontSize: theme.fontSizes.xs
         }
     }
 }));
