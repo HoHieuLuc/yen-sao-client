@@ -3,10 +3,10 @@ import { useScrollIntoView } from '@mantine/hooks';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AppContainer from '../Utils/Wrappers/AppContainer';
+import { Box, Container } from '@mantine/core';
 import AppAffix from '../Utils/Affix/AppAffix';
 import AppHeader from '../Header/Header';
 import AppFooter from '../Footer/Footer';
-import { Box } from '@mantine/core';
 
 import { pageHooks } from '../../graphql/queries';
 
@@ -24,7 +24,7 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
         <>
             <Box
                 sx={{
-                    minHeight: '100vh',
+                    minHeight: '100vh'
                 }}
             >
                 <AppHeader
@@ -52,9 +52,11 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
                         }
                     ]}
                 />
-                <AppContainer>
-                    {children}
-                </AppContainer>
+                <Container size={'xl'} p={0}>
+                    <AppContainer>
+                        {children}
+                    </AppContainer>
+                </Container>
                 {data && (
                     <footer style={{ marginTop: 'auto' }} ref={scrollToFooter.targetRef}>
                         <AppFooter data={data} />
