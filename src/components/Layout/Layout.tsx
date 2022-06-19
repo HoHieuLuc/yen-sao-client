@@ -24,8 +24,7 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
         <>
             <Box
                 sx={{
-                    minHeight: '100vh',
-                    //backgroundColor: 'blue',
+                    minHeight: '100vh'
                 }}
             >
                 <AppHeader
