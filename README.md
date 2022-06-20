@@ -1,3 +1,6 @@
+# Important
+The backend is going down soon.
+
 # Mantine Next Template
 
 Get started with Mantine + Next with just a few button clicks.
