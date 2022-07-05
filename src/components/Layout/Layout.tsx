@@ -24,7 +24,9 @@ const Layout = ({ children, loading, debouncedLoading }: Props) => {
         <>
             <Box
                 sx={{
-                    minHeight: '100vh'
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}
             >
                 <AppHeader
