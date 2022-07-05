@@ -17,7 +17,19 @@ const SanPhamList = () => {
     });
 
     const sanPhamElements = data?.sanPham.all.docs.map(sanPham => (
-        <Grid.Col key={sanPham.id} span={6} xs={6} sm={4} md={3} xl={2}>
+        <Grid.Col
+            key={sanPham.id}
+            span={6}
+            xs={6}
+            sm={4}
+            md={3}
+            xl={2}
+            sx={(theme) => ({
+                [theme.fn.smallerThan('md')]: {
+                    padding: 5
+                }
+            })}
+        >
             <SanPhamCard data={sanPham} />
         </Grid.Col>
     ));
