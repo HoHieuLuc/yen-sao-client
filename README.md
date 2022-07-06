@@ -1,5 +1,4 @@
-# Important
-The backend is going down soon.
+[![OSCS Status](https://www.oscs1024.com/platform/badge/HoHieuLuc/yen-sao-client.svg?size=small)](https://www.oscs1024.com/project/HoHieuLuc/yen-sao-client?ref=badge_small)
 
 # Mantine Next Template
 
