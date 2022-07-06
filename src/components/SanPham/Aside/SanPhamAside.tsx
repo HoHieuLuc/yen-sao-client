@@ -24,6 +24,11 @@ const SanPhamAside = () => {
                             key={sanPham.id}
                             span={6}
                             md={12}
+                            sx={(theme) => ({
+                                [theme.fn.smallerThan('md')]: {
+                                    padding: 5
+                                }
+                            })}
                         >
                             <SanPhamCard
                                 data={sanPham}
