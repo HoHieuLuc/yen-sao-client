@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useMemo } from 'react';
 
 import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { GetServerSidePropsResult } from 'next';
 import isEqual from 'lodash/isEqual';
 import { AppProps } from 'next/app';
 import appConfig from '../config';
@@ -87,13 +86,13 @@ export function addApolloState(
         pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
     }
 
-    return pageProps;
+    return pageProps as GetServerSidePropsResult<{ [key: string]: unknown; }>;
 }
 
 export function useApollo(pageProps: AppProps['pageProps']) {
     let state: InitialState | null;
     try {
-        state = pageProps[APOLLO_STATE_PROP_NAME];
+        state = pageProps[APOLLO_STATE_PROP_NAME] as InitialState;
     } catch (error) {
         state = null;
     }

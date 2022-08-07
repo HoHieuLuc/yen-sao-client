@@ -101,10 +101,10 @@ const CamNang = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const client = initializeApollo();
     const { query } = context;
+
     await camNangService.getBySlug(client, parseString(query.slug));
     await pageService.getAll(client);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {
         props: {}
     });

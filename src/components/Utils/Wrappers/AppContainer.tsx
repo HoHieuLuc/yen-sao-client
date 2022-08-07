@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mantine/core';
+import { Box, Container, Paper } from '@mantine/core';
 
 interface Props {
     children: React.ReactNode | Array<React.ReactNode>;
@@ -6,24 +6,26 @@ interface Props {
 
 const AppContainer = ({ children }: Props) => {
     return (
-        <Box
-            sx={(theme) => ({
-                [theme.fn.largerThan('sm')]: {
-                    margin: theme.spacing.md,
-                }
-            })}
-        >
-            <Paper
-                p='sm'
+        <Container size={'xl'} p={0} m={0}>
+            <Box
                 sx={(theme) => ({
                     [theme.fn.largerThan('sm')]: {
-                        paddingTop: 0,
-                    }
+                        margin: theme.spacing.md,
+                    },
                 })}
             >
-                {children}
-            </Paper>
-        </Box >
+                <Paper
+                    p='sm'
+                    sx={(theme) => ({
+                        [theme.fn.largerThan('sm')]: {
+                            paddingTop: 0,
+                        }
+                    })}
+                >
+                    {children}
+                </Paper>
+            </Box >
+        </Container>
     );
 };
 

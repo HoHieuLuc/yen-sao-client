@@ -1,8 +1,7 @@
-import { useDebouncedValue } from '@mantine/hooks';
 import { useApollo } from '../graphql/client';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 
+import RouterTransition from '../components/Utils/RouterTransition/RouterTransition';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import ErrorBoundary from '../components/Utils/Errors/ErrorBoundary';
 import Layout from '../components/Layout/Layout';
@@ -14,18 +13,15 @@ import { GetServerSidePropsContext } from 'next';
 import { AppProps } from 'next/app';
 import '../styles/index.css';
 
-type Props = AppProps & {
+interface Props extends AppProps {
     colorScheme: ColorScheme;
-};
+    pageProps: Record<string, unknown>;
+}
 
 export default function App(props: Props) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { Component, pageProps } = props;
     const apolloClient = useApollo(pageProps);
     const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
-    const [loading, setLoading] = useState(false);
-    const [debouncedLoading] = useDebouncedValue(loading, 100);
-    const router = useRouter();
 
     const toggleColorScheme = (value?: ColorScheme) => {
         const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -36,23 +32,6 @@ export default function App(props: Props) {
             { maxAge: 60 * 60 * 24 * 30 }
         );
     };
-
-    useEffect(() => {
-        const start = () => {
-            setLoading(true);
-        };
-        const end = () => {
-            setLoading(false);
-        };
-        router.events.on('routeChangeStart', start);
-        router.events.on('routeChangeComplete', end);
-        router.events.on('routeChangeError', end);
-        return () => {
-            router.events.off('routeChangeStart', start);
-            router.events.off('routeChangeComplete', end);
-            router.events.off('routeChangeError', end);
-        };
-    }, [router.asPath]);
 
     return (
         <>
@@ -76,10 +55,8 @@ export default function App(props: Props) {
                             withGlobalStyles
                             withNormalizeCSS
                         >
-                            <Layout
-                                loading={loading}
-                                debouncedLoading={debouncedLoading}
-                            >
+                            <RouterTransition />
+                            <Layout>
                                 <Component {...pageProps} />
                             </Layout>
                         </MantineProvider>
