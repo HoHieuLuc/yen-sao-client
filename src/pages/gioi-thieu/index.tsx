@@ -40,13 +40,11 @@ const AboutPage = () => {
     );
 };
 
-
 export const getServerSideProps: GetServerSideProps = async () => {
     const client = initializeApollo();
 
     await pageService.getAll(client);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {
         props: {}
     });

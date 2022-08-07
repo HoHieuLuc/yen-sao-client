@@ -101,7 +101,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
     await pageService.getAll(client);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return addApolloState(client, {
         props: {}
     });
