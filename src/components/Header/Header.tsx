@@ -1,10 +1,10 @@
-import { useBooleanToggle } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import useStyles from './Header.styles';
 
 import {
     Header, Container, Group, Burger,
-    Stack, Button, Progress, Drawer
+    Stack, Button, Drawer
 } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,12 +16,10 @@ interface Props {
         label: string;
         onClick?: () => void;
     }>;
-    loading: boolean;
-    debouncedLoading: boolean;
 }
 
-const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
-    const [opened, toggleOpened] = useBooleanToggle(false);
+const AppHeader = ({ links }: Props) => {
+    const [opened, handlers] = useDisclosure(false);
     const { classes } = useStyles();
     const router = useRouter();
 
@@ -57,15 +55,6 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
     return (
         <>
             <Header height='4rem' style={{ position: 'sticky' }}>
-                {
-                    !loading && !debouncedLoading
-                        ? <></>
-                        : <Progress
-                            animate
-                            value={loading ? 30 : 100}
-                            size='sm'
-                        />
-                }
                 <Container className={classes.header}>
                     <div style={{ width: '3rem', height: '3rem' }}>
                         <Link href='/'>
@@ -90,7 +79,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
 
                     <Burger
                         opened={opened}
-                        onClick={() => toggleOpened()}
+                        onClick={handlers.toggle}
                         className={classes.burger}
                         size='sm'
                     />
@@ -98,7 +87,7 @@ const AppHeader = ({ links, loading, debouncedLoading }: Props) => {
             </Header>
             <Drawer
                 opened={opened}
-                onClose={() => toggleOpened(false)}
+                onClose={handlers.close}
                 styles={(theme) => ({
                     root: {
                         [theme.fn.largerThan('xs')]: {
