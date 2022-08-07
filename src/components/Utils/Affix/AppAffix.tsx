@@ -22,7 +22,7 @@ const AppAffix = ({ label, onClick, variant, gradient,
                 gradient={gradient}
                 disabled={disabled}
                 sx={(theme) => ({
-                    maxWidth: '1rem',
+                    maxWidth: '2.3rem',
                     transition: 'all 0.8s ease-in-out',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
