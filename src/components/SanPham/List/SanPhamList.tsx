@@ -1,38 +1,42 @@
-import { useDebouncedSearchParams } from '../../../hooks/use-debounced-search-params';
-import { usePagination } from '../../../hooks';
+import { useState } from 'react';
 
 import { Center, Grid, Pagination, Stack, TextInput } from '@mantine/core';
-import LoadingWrapper from '../../Utils/Wrappers/LoadingWrapper';
 import SanPhamCard from './SanPhamCard';
 
 import { sanPhamHooks } from '../../../graphql/queries';
+import removeAccents from 'remove-accents';
 
 const SanPhamList = () => {
-    const { currentPage, handlePageChange } = usePagination();
-    const { debouncedSearch, search, setSearch } = useDebouncedSearchParams();
-    const { data, loading } = sanPhamHooks.useAllSanPhams({
-        page: currentPage,
-        limit: 12,
-        search: debouncedSearch
-    });
+    const [currentPage, handlePageChange] = useState(1);
+    const [search, setSearch] = useState('');
+    const { data } = sanPhamHooks.useAllSanPhams();
+    const limit = 12;
 
-    const sanPhamElements = data?.sanPham.all.docs.map(sanPham => (
-        <Grid.Col
-            key={sanPham.id}
-            span={6}
-            xs={6}
-            sm={4}
-            md={3}
-            xl={2}
-            sx={(theme) => ({
-                [theme.fn.smallerThan('md')]: {
-                    padding: 5
-                }
-            })}
-        >
-            <SanPhamCard data={sanPham} />
-        </Grid.Col>
-    ));
+    const dataAfterFilter = data?.sanPham.all.docs
+        .filter(sanPham =>
+            removeAccents(
+                sanPham.tenSanPham.toLowerCase()
+            ).includes(removeAccents(search.toLowerCase()))
+        ) || [];
+
+    const sanPhamElements = dataAfterFilter.slice((currentPage - 1) * limit, currentPage * limit)
+        .map(sanPham => (
+            <Grid.Col
+                key={sanPham.id}
+                span={6}
+                xs={6}
+                sm={4}
+                md={3}
+                xl={2}
+                sx={(theme) => ({
+                    [theme.fn.smallerThan('md')]: {
+                        padding: 5
+                    }
+                })}
+            >
+                <SanPhamCard data={sanPham} />
+            </Grid.Col>
+        ));
 
     return (
         <Stack spacing='xs'>
@@ -42,40 +46,38 @@ const SanPhamList = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <LoadingWrapper loading={loading}>
-                <Stack spacing='xs'>
-                    {sanPhamElements?.length === 0 && (
-                        <Center>
-                            Không tìm thấy sản phẩm nào {debouncedSearch
-                                && `cho từ khóa "${debouncedSearch}"`}
-                        </Center>
-                    )}
-                    <Grid>
-                        {sanPhamElements}
-                    </Grid>
+            <Stack spacing='xs'>
+                {dataAfterFilter.length === 0 && (
                     <Center>
-                        {data && <Pagination
-                            page={currentPage}
-                            total={data.sanPham.all.pageInfo.totalPages}
-                            onChange={handlePageChange}
-                            styles={(theme) => ({
-                                item: {
-                                    border: 'none',
-                                    backgroundColor: theme.colorScheme,
-                                    [`&:hover`]: {
-                                        backgroundColor: theme.colors.gray[1],
-                                    }
+                        Không tìm thấy sản phẩm nào {search
+                            && `cho từ khóa "${search}"`}
+                    </Center>
+                )}
+                <Grid>
+                    {sanPhamElements}
+                </Grid>
+                {dataAfterFilter.length > 0 && <Center>
+                    <Pagination
+                        page={currentPage}
+                        total={Math.ceil(dataAfterFilter.length / limit)}
+                        onChange={handlePageChange}
+                        styles={(theme) => ({
+                            item: {
+                                border: 'none',
+                                backgroundColor: theme.colorScheme,
+                                [`&:hover`]: {
+                                    backgroundColor: theme.colors.gray[1],
                                 },
-                                active: {
+                                '&[data-active]': {
                                     color: 'black',
                                     backgroundColor: theme.colors.gray[1],
                                     pointerEvents: 'none',
                                 }
-                            })}
-                        />}
-                    </Center>
-                </Stack>
-            </LoadingWrapper>
+                            }
+                        })}
+                    />
+                </Center>}
+            </Stack>
         </Stack>
     );
 };

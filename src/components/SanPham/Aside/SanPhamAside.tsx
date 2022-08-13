@@ -1,11 +1,10 @@
-import LoadingWrapper from '../../Utils/Wrappers/LoadingWrapper';
 import { Grid, Stack, Text } from '@mantine/core';
 import SanPhamCard from '../List/SanPhamCard';
 
 import { sanPhamHooks } from '../../../graphql/queries';
 
 const SanPhamAside = () => {
-    const { data, loading } = sanPhamHooks.useFeaturedSanPhams();
+    const { data } = sanPhamHooks.useFeaturedSanPhams();
 
     return (
         <Stack spacing='xs'>
@@ -17,26 +16,24 @@ const SanPhamAside = () => {
             >
                 Sản phẩm nổi bật
             </Text>
-            <LoadingWrapper loading={loading}>
-                <Grid>
-                    {data && data.sanPham.all.docs.map(sanPham => (
-                        <Grid.Col
-                            key={sanPham.id}
-                            span={6}
-                            md={12}
-                            sx={(theme) => ({
-                                [theme.fn.smallerThan('md')]: {
-                                    padding: 5
-                                }
-                            })}
-                        >
-                            <SanPhamCard
-                                data={sanPham}
-                            />
-                        </Grid.Col>
-                    ))}
-                </Grid>
-            </LoadingWrapper>
+            <Grid>
+                {data && data.sanPham.all.docs.map(sanPham => (
+                    <Grid.Col
+                        key={sanPham.id}
+                        span={6}
+                        md={12}
+                        sx={(theme) => ({
+                            [theme.fn.smallerThan('md')]: {
+                                padding: 5
+                            }
+                        })}
+                    >
+                        <SanPhamCard
+                            data={sanPham}
+                        />
+                    </Grid.Col>
+                ))}
+            </Grid>
         </Stack>
     );
 };

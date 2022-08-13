@@ -16,6 +16,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
     const { data } = pageHooks.useAllPages();
+
     const scrollToTop = useScrollIntoView();
     const scrollToFooter = useScrollIntoView();
     return (
@@ -53,11 +54,9 @@ const Layout = ({ children }: Props) => {
                 <AppContainer>
                     {children}
                 </AppContainer>
-                {data && (
-                    <footer style={{ marginTop: 'auto' }} ref={scrollToFooter.targetRef}>
-                        <AppFooter data={data} />
-                    </footer>
-                )}
+                <footer style={{ marginTop: 'auto' }} ref={scrollToFooter.targetRef}>
+                    <AppFooter />
+                </footer>
             </Box>
             {data && data.page.websiteInfo && data.page.websiteInfo.content.facebook &&
                 <AppAffix

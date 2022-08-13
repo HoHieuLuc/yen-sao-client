@@ -1,20 +1,24 @@
-import { useDebouncedSearchParams } from '../../../hooks/use-debounced-search-params';
-import { usePagination } from '../../../hooks';
+import { camNangHooks } from '../../../graphql/queries';
+import { useState } from 'react';
 
 import { Center, Pagination, Stack, TextInput } from '@mantine/core';
-import LoadingWrapper from '../../Utils/Wrappers/LoadingWrapper';
 import CamNangItem from './CamNangItem';
 
-import { camNangHooks } from '../../../graphql/queries';
+import removeAccents from 'remove-accents';
 
 const CamNangList = () => {
-    const { currentPage, handlePageChange } = usePagination();
-    const { search, setSearch, debouncedSearch } = useDebouncedSearchParams(300);
-    const { data, loading } = camNangHooks.useAllCamNangs({
-        page: currentPage,
-        limit: 10,
-        search: debouncedSearch
-    });
+    const [currentPage, handlePageChange] = useState(1);
+    const [search, setSearch] = useState('');
+    const { data } = camNangHooks.useAllCamNangs();
+    const limit = 10;
+
+    const dataAfterFilter = data?.camNang.all.docs
+        .filter(camNang =>
+            removeAccents(
+                camNang.tieuDe.toLowerCase()
+            ).includes(removeAccents(search.toLowerCase()))
+        ) || [];
+
     return (
         <Stack spacing='xs'>
             <TextInput
@@ -23,43 +27,43 @@ const CamNangList = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <LoadingWrapper loading={loading}>
-                {data && <Stack spacing='xs'>
-                    {data.camNang.all.docs.length === 0 && (
-                        <Center>
-                            Không tìm thấy cẩm nang nào {debouncedSearch
-                                && `cho từ khóa "${debouncedSearch}"`}
-                        </Center>
-                    )}
-                    {data.camNang.all.docs.map(camNang => (
+            <Stack spacing='xs'>
+                {dataAfterFilter.length === 0 && (
+                    <Center>
+                        Không tìm thấy cẩm nang nào {search
+                            && `cho từ khóa "${search}"`}
+                    </Center>
+                )}
+                {dataAfterFilter
+                    .slice((currentPage - 1) * limit, currentPage * limit)
+                    .map(camNang => (
                         <CamNangItem
                             key={camNang.id}
                             data={camNang}
                         />
                     ))}
-                    <Center>
-                        <Pagination
-                            page={currentPage}
-                            total={data.camNang.all.pageInfo.totalPages}
-                            onChange={handlePageChange}
-                            styles={(theme) => ({
-                                item: {
-                                    border: 'none',
-                                    backgroundColor: theme.colorScheme,
-                                    [`&:hover`]: {
-                                        backgroundColor: theme.colors.gray[1],
-                                    }
+                {dataAfterFilter.length / limit > 0 && <Center>
+                    <Pagination
+                        page={currentPage}
+                        total={Math.ceil(dataAfterFilter.length / limit)}
+                        onChange={handlePageChange}
+                        styles={(theme) => ({
+                            item: {
+                                border: 'none',
+                                backgroundColor: theme.colorScheme,
+                                [`&:hover`]: {
+                                    backgroundColor: theme.colors.gray[1],
                                 },
-                                active: {
+                                '&[data-active]': {
                                     color: 'black',
                                     backgroundColor: theme.colors.gray[1],
                                     pointerEvents: 'none',
                                 }
-                            })}
-                        />
-                    </Center>
-                </Stack>}
-            </LoadingWrapper>
+                            }
+                        })}
+                    />
+                </Center>}
+            </Stack>
         </Stack>
     );
 };

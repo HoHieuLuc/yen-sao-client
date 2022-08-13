@@ -3,17 +3,14 @@ import useStyles from './Footer.styles';
 import { Text, Container, Grid, Box } from '@mantine/core';
 import Image from 'next/image';
 
-import { AllPages } from '../../types';
+import { pageHooks } from '../../graphql/queries';
 
+const AppFooter = () => {
+    const { data } = pageHooks.useAllPages();
 
-interface Props {
-    data: AllPages;
-}
-
-const AppFooter = ({ data }: Props) => {
     const { classes } = useStyles();
-    const addresses = data.page.websiteInfo ? (data.page.websiteInfo.content.address || []) : [];
-    const phones = data.page.websiteInfo ? (data.page.websiteInfo.content.phone || []) : [];
+    const addresses = data?.page.websiteInfo ? (data.page.websiteInfo.content.address || []) : [];
+    const phones = data?.page.websiteInfo ? (data.page.websiteInfo.content.phone || []) : [];
 
     return (
         <Box className={classes.footer}>

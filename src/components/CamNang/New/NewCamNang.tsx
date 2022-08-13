@@ -5,11 +5,7 @@ import Link from 'next/link';
 import { camNangHooks } from '../../../graphql/queries';
 
 const NewCamNang = () => {
-    const { data } = camNangHooks.useAllCamNangs({
-        page: 1,
-        limit: 4,
-        search: ''
-    });
+    const { data } = camNangHooks.useAllCamNangs();
     return (
         <Box>
             <Text
@@ -23,7 +19,7 @@ const NewCamNang = () => {
             </Text>
             {data &&
                 <Grid gutter='xs'>
-                    {data.camNang.all.docs.map(camNang => (
+                    {data.camNang.all.docs.slice(0, 4).map(camNang => (
                         <NewCamNangItem
                             key={camNang.id}
                             data={camNang}

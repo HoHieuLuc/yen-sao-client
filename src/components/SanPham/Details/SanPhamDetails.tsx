@@ -37,10 +37,12 @@ const SanPhamDetails = ({ data, pageData }: Props) => {
                                 width: 12,
                                 height: 4,
                                 transition: 'width 250ms ease',
+                                backgroundColor: 'rgb(0, 153, 255)',
 
                                 '&[data-active]': {
                                     width: 40,
                                     border: `1px solid rgba(51, 154, 240, 0.5)`,
+                                    backgroundColor: 'white',
                                 },
                             },
                             control: {
