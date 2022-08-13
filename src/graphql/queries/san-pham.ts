@@ -70,13 +70,18 @@ const BY_SLUG = gql`
     }
 `;
 
+const allSanPhamVariables = {
+    page: 1,
+    limit: 12,
+    search: ''
+};
+
 const getAll = async (
-    client: ApolloClient<NormalizedCacheObject>,
-    variables: AllSanPhamVars
+    client: ApolloClient<NormalizedCacheObject>
 ) => {
     return client.query<AllSanPhams, AllSanPhamVars>({
         query: ALL,
-        variables
+        variables: allSanPhamVariables
     });
 };
 
@@ -102,11 +107,11 @@ export const sanPhamService = {
     getFeatured
 };
 
-const useAllSanPhams = (variables: AllSanPhamVars) => {
+const useAllSanPhams = () => {
     return useQuery<
         AllSanPhams, AllSanPhamVars
     >(ALL, {
-        variables
+        variables: allSanPhamVariables
     });
 };
 

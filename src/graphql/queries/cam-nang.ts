@@ -38,13 +38,18 @@ const BY_SLUG = gql`
     }
 `;
 
+const allCamNangVariables = {
+    page: 1,
+    limit: 10,
+    search: ''
+};
+
 const getAll = async (
     client: ApolloClient<NormalizedCacheObject>,
-    variables: AllCamNangsVars
 ) => {
     return client.query<AllCamNangs, AllCamNangsVars>({
         query: ALL,
-        variables
+        variables: allCamNangVariables
     });
 };
 
@@ -67,15 +72,15 @@ export const camNangService = {
     getBySlug
 };
 
-const useAllCamNangs = (variables: AllCamNangsVars) => {
+const useAllCamNangs = () => {
     return useQuery<AllCamNangs, AllCamNangsVars>(ALL, {
-        variables
+        variables: allCamNangVariables
     });
 };
 
 const useCamNangBySlug = (slug: string) => {
     return useQuery<
-        CamNangBySlug, {slug: string}
+        CamNangBySlug, { slug: string }
     >(BY_SLUG, {
         variables: {
             slug
