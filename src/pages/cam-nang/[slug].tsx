@@ -8,10 +8,10 @@ import CamNangList from '../../components/CamNang/List/CamNangList';
 import { Divider, Grid, Stack, Text } from '@mantine/core';
 import Head from 'next/head';
 
-import { camNangHooks, camNangService, pageService } from '../../graphql/queries';
+import { camNangHooks, camNangService, pageService, sanPhamService } from '../../graphql/queries';
 import { initializeApollo, addApolloState } from '../../graphql/client';
 import { parseString } from '../../utils/common';
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const CamNang = () => {
     const router = useRouter();
@@ -98,12 +98,30 @@ const CamNang = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const client = initializeApollo();
-    const { query } = context;
 
-    await camNangService.getBySlug(client, parseString(query.slug));
+    const { data } = await camNangService.getAll(client);
+
+    const paths = data.camNang.all.docs.map(camNang => ({
+        params: {
+            slug: camNang.slug
+        }
+    }));
+
+    return {
+        paths,
+        fallback: false
+    };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const client = initializeApollo();
+
+    await camNangService.getBySlug(client, parseString(params?.slug));
+    await camNangService.getAll(client);
     await pageService.getAll(client);
+    await sanPhamService.getFeatured(client);
 
     return addApolloState(client, {
         props: {}

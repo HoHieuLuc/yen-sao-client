@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { initializeApollo, addApolloState } from '../../graphql/client';
 import { pageHooks, pageService } from '../../graphql/queries';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 const AboutPage = () => {
     const { data } = pageHooks.useAllPages();
@@ -40,7 +40,7 @@ const AboutPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const client = initializeApollo();
 
     await pageService.getAll(client);

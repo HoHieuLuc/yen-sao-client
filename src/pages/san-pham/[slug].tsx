@@ -9,13 +9,14 @@ import Head from 'next/head';
 
 import { pageHooks, pageService, sanPhamHooks, sanPhamService } from '../../graphql/queries';
 import { addApolloState, initializeApollo } from '../../graphql/client';
-import { parseNumber, parseString } from '../../utils/common';
-import { GetServerSideProps } from 'next';
+import { parseString } from '../../utils/common';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const SanPham = () => {
     const router = useRouter();
     const { slug } = router.query;
     const { data } = sanPhamHooks.useSanPhamBySlug(parseString(slug));
+
     const pageResult = pageHooks.useAllPages();
 
     if (data && !data.sanPham.bySlug) {
@@ -63,7 +64,7 @@ const SanPham = () => {
             <Stack spacing='xs'>
                 {data && data.sanPham.bySlug &&
                     <>
-                        <AppBreadcrumbs 
+                        <AppBreadcrumbs
                             data={[
                                 {
                                     title: 'Trang chủ',
@@ -89,16 +90,28 @@ const SanPham = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const client = initializeApollo();
-    const { query } = context;
 
-    await sanPhamService.getBySlug(client, parseString(query.slug));
-    await sanPhamService.getAll(client, {
-        search: parseString(query.search),
-        page: parseNumber(query.page, 1),
-        limit: 12,
-    });
+    const { data } = await sanPhamService.getAll(client);
+
+    const paths = data.sanPham.all.docs.map(sanPham => ({
+        params: {
+            slug: sanPham.slug
+        }
+    }));
+
+    return {
+        paths,
+        fallback: false
+    };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const client = initializeApollo();
+
+    await sanPhamService.getBySlug(client, parseString(params?.slug));
+    await sanPhamService.getAll(client);
     await pageService.getAll(client);
 
     return addApolloState(client, {

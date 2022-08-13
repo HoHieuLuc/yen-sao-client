@@ -6,8 +6,7 @@ import Head from 'next/head';
 
 import { camNangService, pageService, sanPhamService } from '../../graphql/queries';
 import { initializeApollo, addApolloState } from '../../graphql/client';
-import { parseNumber, parseString } from '../../utils/common';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 const CamNang = () => {
     return (
@@ -48,14 +47,10 @@ const CamNang = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const client = initializeApollo();
-    const { query } = context;
-    await camNangService.getAll(client, {
-        page: parseNumber(query.page, 1),
-        search: parseString(query.search),
-        limit: 10
-    });
+
+    await camNangService.getAll(client);
     await pageService.getAll(client);
     await sanPhamService.getFeatured(client);
 

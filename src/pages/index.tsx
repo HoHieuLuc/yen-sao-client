@@ -12,8 +12,7 @@ import Head from 'next/head';
 
 import { camNangService, pageHooks, pageService, sanPhamService } from '../graphql/queries';
 import { addApolloState, initializeApollo } from '../graphql/client';
-import { parseNumber, parseString } from '../utils/common';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 export default function HomePage() {
     const { data } = pageHooks.useAllPages();
@@ -74,22 +73,13 @@ export default function HomePage() {
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const client = initializeApollo();
-    const { query } = context;
 
-    await sanPhamService.getAll(client, {
-        page: parseNumber(query.page, 1),
-        search: parseString(query.search),
-        limit: 12,
-    });
+    await sanPhamService.getAll(client);
     await sanPhamService.getFeatured(client);
     await pageService.getAll(client);
-    await camNangService.getAll(client, {
-        page: 1,
-        limit: 4,
-        search: ''
-    });
+    await camNangService.getAll(client);
 
     return addApolloState(client, {
         props: {}
