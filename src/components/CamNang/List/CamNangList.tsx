@@ -27,7 +27,11 @@ const CamNangList = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <Stack spacing='xs'>
+            <Stack spacing='xs' sx={(theme) => ({
+                [theme.fn.smallerThan('sm')]: {
+                    gap: 10
+                }
+            })}>
                 {dataAfterFilter.length === 0 && (
                     <Center>
                         Không tìm thấy cẩm nang nào {search
