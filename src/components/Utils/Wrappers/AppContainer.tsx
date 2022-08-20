@@ -6,7 +6,7 @@ interface Props {
 
 const AppContainer = ({ children }: Props) => {
     return (
-        <Container size={'xl'} p={0} m={0}>
+        <Container size={'xl'} p={0} mt={0} mb={0}>
             <Box
                 sx={(theme) => ({
                     [theme.fn.largerThan('sm')]: {
